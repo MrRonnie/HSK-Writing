@@ -3,449 +3,474 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HSK Write — Practice Chinese characters from audio</title>
+<title>HSK Write</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0b1220;
-  --surface:#141c2f;
-  --surface-2:#1c2740;
-  --border:#2a3654;
-  --border-strong:#3d4a6b;
-  --text:#e8edf7;
-  --text-mute:#8a98b8;
-  --text-dim:#5d6987;
-  --accent:#5b8def;
-  --accent-h:#7aa3f5;
-  --green:#4ade80;
-  --green-bg:#0d3320;
-  --red:#f87171;
-  --red-bg:#3d1414;
-  --amber:#fbbf24;
-  --purple:#a78bfa;
+  --bg:#0b1220;--surface:#141c2f;--surface2:#1c2740;
+  --brd:#2a3654;--brd2:#3d4a6b;
+  --tx:#e8edf7;--txm:#8a98b8;--txd:#5d6987;
+  --accent:#5b8def;--accentH:#7aa3f5;
+  --green:#4ade80;--green-bg:rgba(74,222,128,.08);
+  --red:#f87171;--red-bg:rgba(248,113,113,.08);
+  --amber:#fbbf24;--purple:#a78bfa;
 }
 html,body{height:100%}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  -webkit-font-smoothing:antialiased;
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;
-}
-header{
-  background:var(--surface);
-  border-bottom:1px solid var(--border);
-  padding:12px 20px;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  flex-wrap:wrap;
-}
-.logo{font-weight:700;font-size:17px;display:flex;align-items:center;gap:8px}
-.logo-ico{
-  width:28px;height:28px;border-radius:7px;
-  background:linear-gradient(135deg,#5b8def 0%,#a78bfa 100%);
-  display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-size:14px;color:white;
-}
-.nav{display:flex;gap:4px;margin-left:auto}
-.navbtn{
-  padding:7px 14px;border:none;background:transparent;color:var(--text-mute);
-  border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;
-  transition:all .15s;font-family:inherit;
-}
-.navbtn:hover{color:var(--text);background:var(--surface-2)}
-.navbtn.active{background:var(--surface-2);color:var(--text)}
-.statsbar{
-  background:var(--surface);
-  border-bottom:1px solid var(--border);
-  padding:8px 20px;
-  display:flex;
-  gap:20px;
-  font-size:12px;
-  color:var(--text-mute);
-  flex-wrap:wrap;
-}
-.statsbar b{color:var(--text);font-weight:600}
-main{flex:1;padding:24px 20px;max-width:640px;margin:0 auto;width:100%}
-.card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:28px 24px;
-  margin-bottom:14px;
-  text-align:center;
-}
+body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100vh}
+header{background:var(--surface);border-bottom:1px solid var(--brd);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.logo{font-weight:700;font-size:16px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo-ico{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#5b8def,#a78bfa);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
+.chips{display:flex;gap:5px;flex-wrap:wrap;flex:1}
+.chip{padding:4px 10px;border-radius:20px;border:1px solid var(--brd2);font-size:12px;font-weight:600;cursor:pointer;background:var(--surface2);color:var(--txm);transition:all .15s;font-family:inherit;white-space:nowrap}
+.chip:hover{color:var(--tx)}
+.chip.active{color:#fff}
+.chip.active.lv1{background:#1a6b3c;border-color:#4ade80}
+.chip.active.lv2{background:#1a3d6b;border-color:#60a5fa}
+.chip.active.lv3{background:#3b1f6b;border-color:#a78bfa}
+.chip.active.lvimp{background:#4a2060;border-color:#e879f9}
+.chip-x{padding:2px 6px;border-radius:12px;border:none;background:transparent;color:var(--txd);cursor:pointer;font-size:10px;margin-left:-4px;font-family:inherit}
+.chip-x:hover{color:var(--red)}
+.chip-import{padding:4px 10px;border-radius:20px;border:1px dashed var(--brd2);font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--txd);transition:all .15s}
+.chip-import:hover{color:var(--accent);border-color:var(--accent)}
+.nav{display:flex;gap:3px;margin-left:auto}
+.navbtn{padding:6px 12px;border:none;background:transparent;color:var(--txm);border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;transition:all .15s;font-family:inherit}
+.navbtn:hover{color:var(--tx);background:var(--surface2)}
+.navbtn.active{background:var(--surface2);color:var(--tx)}
+.sbar{background:var(--surface);border-bottom:1px solid var(--brd);padding:6px 16px;display:flex;gap:16px;font-size:12px;color:var(--txm);flex-wrap:wrap}
+.sbar b{font-weight:600}
+.c-g{color:var(--green)}.c-r{color:var(--red)}.c-a{color:var(--amber)}
+main{flex:1;padding:20px 16px;max-width:620px;margin:0 auto;width:100%}
+.card{background:var(--surface);border:1px solid var(--brd);border-radius:16px;padding:26px 22px;margin-bottom:12px;text-align:center}
 .badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:.3px}
-.badge-hsk3{background:rgba(167,139,250,.15);color:var(--purple)}
-.prompt{font-size:12px;color:var(--text-dim);margin-bottom:16px;text-transform:uppercase;letter-spacing:.5px}
-.play-btn{
-  width:84px;height:84px;border-radius:50%;border:none;cursor:pointer;
-  background:var(--accent);color:white;font-size:32px;
-  display:inline-flex;align-items:center;justify-content:center;
-  transition:all .15s;box-shadow:0 0 0 0 rgba(91,141,239,.4);
-}
-.play-btn:hover{background:var(--accent-h);box-shadow:0 0 0 8px rgba(91,141,239,.12)}
-.play-btn:active{transform:scale(.95)}
-.play-label{font-size:11px;color:var(--text-dim);margin-top:10px}
-.hint-btn{
-  margin-top:18px;background:transparent;border:1px solid var(--border-strong);
-  color:var(--text-mute);padding:5px 12px;border-radius:8px;cursor:pointer;
-  font-size:12px;font-family:inherit;transition:all .15s;
-}
-.hint-btn:hover{color:var(--text);border-color:var(--text-mute)}
-.hint-text{margin-top:10px;color:var(--text-mute);font-size:14px;min-height:20px;font-style:italic}
-.answer-box{
-  margin-top:18px;min-height:78px;
-  background:var(--bg);border:2px solid var(--border);border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  transition:border-color .2s;padding:8px;
-}
-.answer-box.correct{border-color:var(--green);background:var(--green-bg)}
-.answer-box.wrong{border-color:var(--red);background:var(--red-bg)}
-.answer-char{font-size:42px;font-weight:700;letter-spacing:6px}
-.answer-placeholder{color:var(--text-dim);font-size:13px}
-.result-box{margin-top:14px;border-radius:12px;padding:14px 16px;text-align:left}
-.result-box.correct{background:var(--green-bg);border:1px solid rgba(74,222,128,.3)}
-.result-box.wrong{background:var(--red-bg);border:1px solid rgba(248,113,113,.3)}
-.result-title{font-weight:700;margin-bottom:6px;font-size:14px}
-.result-box.correct .result-title{color:var(--green)}
-.result-box.wrong .result-title{color:var(--red)}
-.result-ch{font-size:32px;font-weight:700;letter-spacing:3px}
-.result-py{font-size:15px;color:var(--text-mute);margin-top:2px}
-.result-en{font-size:12px;color:var(--text-dim);margin-top:6px;line-height:1.5}
-.result-pos{display:inline-block;font-size:10px;background:var(--surface-2);color:var(--text-mute);padding:1px 6px;border-radius:4px;margin-bottom:6px;font-weight:600}
-.ime-wrap{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:14px 16px;
-  margin-bottom:14px;
-}
-.ime-label{
-  font-size:11px;color:var(--text-dim);margin-bottom:10px;
-  text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:6px;
-}
-.ime-input{
-  width:100%;padding:12px 14px;
-  background:var(--bg);border:1.5px solid var(--border);border-radius:10px;
-  color:var(--text);font-size:16px;outline:none;font-family:inherit;
-  transition:border-color .15s;
-}
-.ime-input:focus{border-color:var(--accent)}
-.cand-grid{
-  display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;
-}
-.cand-btn{
-  background:var(--bg);border:1px solid var(--border-strong);border-radius:8px;
-  padding:8px 12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;
-  gap:1px;transition:all .1s;min-width:54px;
-}
-.cand-btn:hover{background:var(--surface-2);border-color:var(--accent)}
-.cand-ch{font-size:22px;font-weight:600}
-.cand-py{font-size:9px;color:var(--text-dim);font-weight:600}
-.cand-empty{padding:8px;color:var(--text-dim);font-size:12px;font-style:italic}
-.actions{display:flex;gap:10px;margin-bottom:24px}
-.btn{
-  flex:1;padding:14px;border:none;border-radius:12px;cursor:pointer;
-  font-size:15px;font-weight:700;font-family:inherit;transition:all .15s;
-}
+.b1{background:rgba(74,222,128,.1);color:var(--green)}
+.b2{background:rgba(96,165,250,.1);color:#60a5fa}
+.b3{background:rgba(167,139,250,.1);color:var(--purple)}
+.bimp{background:rgba(232,121,249,.1);color:#e879f9}
+.prompt{font-size:11px;color:var(--txd);margin-top:16px;text-transform:uppercase;letter-spacing:.5px}
+.play-btn{margin-top:14px;width:80px;height:80px;border-radius:50%;border:none;cursor:pointer;background:var(--accent);color:#fff;font-size:30px;display:inline-flex;align-items:center;justify-content:center;transition:all .15s}
+.play-btn:hover{background:var(--accentH)}
+.play-btn:active{transform:scale(.94)}
+.play-lbl{font-size:11px;color:var(--txd);margin-top:8px}
+.hint-btn{margin-top:16px;background:transparent;border:1px solid var(--brd2);color:var(--txm);padding:5px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-family:inherit;transition:all .15s}
+.hint-btn:hover{color:var(--tx)}
+.hint-txt{margin-top:10px;color:var(--txm);font-size:14px;min-height:20px;font-style:italic}
+.ans-box{margin-top:16px;min-height:74px;background:var(--bg);border:2px solid var(--brd);border-radius:12px;display:flex;align-items:center;justify-content:center;transition:border-color .2s;padding:8px}
+.ans-box.correct{border-color:var(--green);background:var(--green-bg)}
+.ans-box.wrong{border-color:var(--red);background:var(--red-bg)}
+.ans-ch{font-size:40px;font-weight:700;letter-spacing:5px}
+.ans-ph{color:var(--txd);font-size:13px}
+.res-box{margin-top:12px;border-radius:12px;padding:14px 16px;text-align:left}
+.res-box.correct{background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.25)}
+.res-box.wrong{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.25)}
+.res-title{font-weight:700;margin-bottom:6px;font-size:14px}
+.res-box.correct .res-title{color:var(--green)}
+.res-box.wrong .res-title{color:var(--red)}
+.res-ch{font-size:30px;font-weight:700;letter-spacing:3px}
+.res-py{font-size:14px;color:var(--txm);margin-top:2px}
+.res-en{font-size:12px;color:var(--txd);margin-top:6px;line-height:1.5}
+.res-pos{display:inline-block;font-size:10px;background:var(--surface2);color:var(--txm);padding:1px 6px;border-radius:4px;margin-bottom:6px;font-weight:600}
+.res-next{font-size:11px;color:var(--txd);margin-top:8px}
+.ime{background:var(--surface);border:1px solid var(--brd);border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.ime-lbl{font-size:11px;color:var(--txd);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.ime-inp{width:100%;padding:11px 14px;background:var(--bg);border:1.5px solid var(--brd);border-radius:9px;color:var(--tx);font-size:16px;outline:none;font-family:inherit;transition:border-color .15s}
+.ime-inp:focus{border-color:var(--accent)}
+.cands{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.cand{background:var(--bg);border:1px solid var(--brd2);border-radius:8px;padding:7px 11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;transition:all .1s;min-width:52px}
+.cand:hover{background:var(--surface2);border-color:var(--accent)}
+.cand-ch{font-size:21px;font-weight:600}
+.cand-py{font-size:9px;color:var(--txd);font-weight:600}
+.cand-empty{padding:6px 0;color:var(--txd);font-size:12px;font-style:italic}
+.actions{display:flex;gap:10px;margin-bottom:20px}
+.btn{flex:1;padding:13px;border:none;border-radius:11px;cursor:pointer;font-size:14px;font-weight:700;font-family:inherit;transition:all .15s}
 .btn:disabled{opacity:.35;cursor:not-allowed}
-.btn-primary{background:var(--accent);color:white}
-.btn-primary:hover:not(:disabled){background:var(--accent-h)}
-.btn-secondary{background:var(--surface-2);color:var(--text-mute);flex:0 0 auto;padding:14px 18px}
-.btn-secondary:hover{color:var(--text)}
-.btn-next-c{background:var(--green-bg);color:var(--green);border:1px solid rgba(74,222,128,.3)}
-.btn-next-w{background:var(--accent);color:white}
-.btn-skip{background:transparent;color:var(--text-dim);border:1px solid var(--border)}
-.btn-skip:hover{color:var(--text-mute);border-color:var(--text-mute)}
-
-.stats-wrap{max-width:760px;margin:0 auto}
-.stats-h{font-size:14px;font-weight:700;color:var(--text-mute);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:24px}
-.metric{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}
-.metric-label{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.metric-val{font-size:22px;font-weight:700}
-.metric-val.green{color:var(--green)}
-.metric-val.amber{color:var(--amber)}
-.metric-val.red{color:var(--red)}
-.progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:24px}
-.progress-track{background:var(--bg);border-radius:8px;height:10px;overflow:hidden;margin-top:10px}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--purple));border-radius:8px;transition:width .4s}
-.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-mute);margin-top:8px}
-.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
-.word-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:10px;
-  padding:12px;transition:transform .1s;
-}
-.word-card.due{border-color:var(--amber)}
-.word-card.mastered{border-color:rgba(74,222,128,.3)}
-.wc-ch{font-size:22px;font-weight:700;margin-bottom:2px}
-.wc-py{font-size:12px;color:var(--text-mute)}
-.wc-en{font-size:11px;color:var(--text-dim);margin-top:4px;line-height:1.4;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.wc-stats{display:flex;gap:5px;margin-top:8px}
+.bp{background:var(--accent);color:#fff}.bp:hover:not(:disabled){background:var(--accentH)}
+.bs{background:var(--surface2);color:var(--txm);flex:0 0 auto;padding:13px 16px}.bs:hover{color:var(--tx)}
+.bnc{background:rgba(74,222,128,.12);color:var(--green);border:1px solid rgba(74,222,128,.25)}
+.bnw{background:var(--accent);color:#fff}
+.bsk{background:transparent;color:var(--txd);border:1px solid var(--brd)}.bsk:hover{color:var(--txm)}
+.stats-wrap{max-width:740px;margin:0 auto}
+.sh{font-size:13px;font-weight:700;color:var(--txm);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:20px}
+.metric{background:var(--surface);border:1px solid var(--brd);border-radius:12px;padding:14px}
+.ml{font-size:11px;color:var(--txd);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.mv{font-size:21px;font-weight:700}
+.mof{font-size:13px;color:var(--txd)}
+.pw{background:var(--surface);border:1px solid var(--brd);border-radius:12px;padding:16px;margin-bottom:10px}
+.pt{background:var(--bg);border-radius:6px;height:8px;overflow:hidden;margin-top:10px}
+.pf{height:100%;border-radius:6px;transition:width .4s}
+.pf1{background:linear-gradient(90deg,#4ade80,#22c55e)}
+.pf2{background:linear-gradient(90deg,#60a5fa,#3b82f6)}
+.pf3{background:linear-gradient(90deg,#a78bfa,#7c3aed)}
+.pfi{background:linear-gradient(90deg,#e879f9,#9333ea)}
+.pm{display:flex;justify-content:space-between;font-size:12px;color:var(--txm);margin-top:6px}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.wcard{background:var(--surface);border:1px solid var(--brd);border-radius:10px;padding:12px;transition:border-color .15s}
+.wcard.due{border-color:rgba(251,191,36,.4)}
+.wcard.mastered{border-color:rgba(74,222,128,.3)}
+.wch{font-size:21px;font-weight:700;margin-bottom:2px}
+.wpy{font-size:11px;color:var(--txm)}
+.wen{font-size:10px;color:var(--txd);margin-top:4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wtags{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
 .tag{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600}
-.tag-c{background:rgba(74,222,128,.15);color:var(--green)}
-.tag-w{background:rgba(248,113,113,.15);color:var(--red)}
-.tag-new{color:var(--text-dim);font-size:10px}
-.tag-due{background:rgba(251,191,36,.15);color:var(--amber);font-size:10px;padding:2px 6px;border-radius:4px}
-.tag-mastered{background:rgba(74,222,128,.15);color:var(--green);font-size:10px;padding:2px 6px;border-radius:4px}
-.empty{text-align:center;padding:60px 20px;color:var(--text-mute)}
-.empty-ico{font-size:48px;margin-bottom:16px}
-.reset-btn{
-  margin-top:20px;background:transparent;color:var(--red);
-  border:1px solid rgba(248,113,113,.3);padding:8px 16px;border-radius:8px;
-  cursor:pointer;font-family:inherit;font-size:13px;
-}
+.tc{background:rgba(74,222,128,.12);color:var(--green)}
+.tw{background:rgba(248,113,113,.12);color:var(--red)}
+.tnew{color:var(--txd);font-size:10px;font-weight:600}
+.tdue{background:rgba(251,191,36,.12);color:var(--amber);font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600}
+.tmas{background:rgba(74,222,128,.12);color:var(--green);font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600}
+.reset-btn{margin-top:20px;background:transparent;color:var(--red);border:1px solid rgba(248,113,113,.25);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:13px;display:block}
 .reset-btn:hover{background:var(--red-bg)}
-@media (max-width:520px){
-  .answer-char{font-size:34px;letter-spacing:4px}
-  main{padding:16px 12px}
-  header{padding:10px 14px;gap:8px}
-  .logo{font-size:15px}
-  .play-btn{width:72px;height:72px;font-size:26px}
-}
+.imp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:100}
+.imp-card{background:var(--surface);border:1px solid var(--brd);border-radius:16px;padding:28px;max-width:380px;width:90%;text-align:center}
+.imp-title{font-size:17px;font-weight:700;margin-bottom:8px}
+.imp-sub{font-size:13px;color:var(--txm);margin-bottom:20px;line-height:1.5}
+.imp-prog{font-size:13px;color:var(--accent);margin-top:12px;min-height:20px}
+.empty{text-align:center;padding:60px 20px;color:var(--txm);font-size:14px}
+@media(max-width:500px){.ans-ch{font-size:32px}.logo{font-size:14px}main{padding:14px 10px}header{padding:8px 10px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">
-    <div class="logo-ico">写</div>
-    HSK Write
-  </div>
+  <div class="logo"><div class="logo-ico">写</div>HSK Write</div>
+  <div class="chips" id="chips"></div>
   <nav class="nav">
-    <button class="navbtn active" id="navQuiz" onclick="setView('quiz')">Practice</button>
-    <button class="navbtn" id="navStats" onclick="setView('stats')">Progress</button>
+    <button class="navbtn active" id="navQ" onclick="setView('quiz')">Practice</button>
+    <button class="navbtn" id="navS" onclick="setView('stats')">Progress</button>
   </nav>
 </header>
-<div class="statsbar" id="statsbar"></div>
+<div class="sbar" id="sbar"></div>
 <main id="main"></main>
-
+<div id="impModal" style="display:none"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
-const VOCAB=[{"ch":"啊","py":"ā","plain":"a","en":"ah; (particle showing elation, doubt, puzzled surprise, or approval)","short_en":"ah; (particle showing elation, doubt, puzzled surprise, or approval)","pos":"interjection","audio":"a.mp3"},{"ch":"还","py":"huán","plain":"huan","en":"to return","short_en":"to return","pos":"verb","audio":"huan2.mp3"},{"ch":"把","py":"bǎ","plain":"ba","en":"grasp, to hold, handle, m.(for things with handles)","short_en":"grasp, to hold, handle, m.(for things with handles)","pos":"preposition","audio":"ba3.mp3"},{"ch":"过","py":"guò","plain":"guo","en":"to pass, to go by, to exceed","short_en":"to pass, to go by, to exceed","pos":"verb","audio":"guo4.mp3"},{"ch":"如果","py":"rúguǒ","plain":"ru guo","en":"if; in the event that","short_en":"if; in the event that","pos":"conjunction","audio":"ru2guo3.mp3"},{"ch":"只","py":"zhǐ","plain":"zhi","en":"only; merely","short_en":"only; merely","pos":"adverb","audio":"zhi3.mp3"},{"ch":"被","py":"bèi","plain":"bei","en":"by (indicates passive voice sentences); a quilt/blanket","short_en":"by (indicates passive voice sentences); a quilt/blanket","pos":"preposition","audio":"bei4.mp3"},{"ch":"跟","py":"gēn","plain":"gen","en":"heel; follow; with; and","short_en":"heel; follow; with; and","pos":"preposition","audio":"gen1.mp3"},{"ch":"自己","py":"zìjǐ","plain":"zi ji","en":"oneself; self","short_en":"oneself; self","pos":"pronoun","audio":"zi4ji3.mp3"},{"ch":"用","py":"yòng","plain":"yong","en":"to use (Kangxi radical 101)","short_en":"to use (Kangxi radical 101)","pos":"preposition","audio":"yong4.mp3"},{"ch":"像","py":"xiàng","plain":"xiang","en":"be like; resemble; appearance; appear","short_en":"be like; resemble; appearance; appear","pos":"verb","audio":"xiang4.mp3"},{"ch":"为","py":"wèi","plain":"wei","en":"for; because of; to; for the sake of","short_en":"for; because of; to; for the sake of","pos":"preposition","audio":"wei4.mp3"},{"ch":"需要","py":"xūyào","plain":"xu yao","en":"to need; to want; to demand","short_en":"to need; to want; to demand","pos":"verb","audio":"xu1yao4.mp3"},{"ch":"应该","py":"yīnggāi","plain":"ying gai","en":"should; ought to; must","short_en":"should; ought to; must","pos":"verb","audio":"ying1gai1.mp3"},{"ch":"起来","py":"qǐlái","plain":"qi lai","en":"to get up, to rise, to arise, to start","short_en":"to get up, to rise, to arise, to start","pos":"verb","audio":"qi3lai2.mp3"},{"ch":"才","py":"cái","plain":"cai","en":"ability; talent; just now; not until","short_en":"ability; talent; just now; not until","pos":"adverb","audio":"cai2.mp3"},{"ch":"又","py":"yòu","plain":"you","en":"again; both...and...","short_en":"again; both...and...","pos":"adverb","audio":"you4.mp3"},{"ch":"拿","py":"ná","plain":"na","en":"hold; take; seize; capture","short_en":"hold; take; seize; capture","pos":"verb","audio":"na2.mp3"},{"ch":"更","py":"gèng","plain":"geng","en":"more; even more","short_en":"more; even more","pos":"adverb","audio":"geng4.mp3"},{"ch":"带","py":"dài","plain":"dai","en":"belt; zone; carry, bring, take","short_en":"belt; zone; carry, bring, take","pos":"verb","audio":"dai4.mp3"},{"ch":"然后","py":"ránhòu","plain":"ran hou","en":"then; afterwards","short_en":"then; afterwards","pos":"conjunction","audio":"ran2hou4.mp3"},{"ch":"一样","py":"yị̄yàng","plain":"yi yang","en":"the same; alike; equal to","short_en":"the same; alike; equal to","pos":"auxiliary","audio":"yi2yang4.mp3"},{"ch":"当然","py":"dāngrán","plain":"dang ran","en":"of course; naturally","short_en":"of course; naturally","pos":"adverb","audio":"dang1ran2.mp3"},{"ch":"相信","py":"xiāngxìn","plain":"xiang xin","en":"believe (sb.); be convinced of","short_en":"believe (sb.); be convinced of","pos":"verb","audio":"xiang1xin4.mp3"},{"ch":"认为","py":"rènwéi","plain":"ren wei","en":"believe; think that","short_en":"believe; think that","pos":"verb","audio":"ren4wei2.mp3"},{"ch":"明白","py":"míngbai","plain":"ming bai","en":"clear; obvious; understand; explicit","short_en":"clear; obvious; understand; explicit","pos":"verb","audio":"ming2bai.mp3"},{"ch":"一直","py":"yī̠zhí","plain":"yi zhi","en":"always; all along; straight (in a straight line)","short_en":"always; all along; straight (in a straight line)","pos":"adverb","audio":"yi4zhi2.mp3"},{"ch":"地","py":"dì","plain":"di","en":"earth; ground","short_en":"earth; ground","pos":"auxiliary","audio":"di4.mp3"},{"ch":"地方","py":"dìfang","plain":"di fang","en":"place; space; room; part, (fāng: local; regional)","short_en":"place; space; room; part, (fāng: local; regional)","pos":"noun","audio":"di4fang.mp3"},{"ch":"离开","py":"líkāi","plain":"li kai","en":"leave; depart","short_en":"leave; depart","pos":"verb","audio":"li2kai1.mp3"},{"ch":"一定","py":"yị̄dìng","plain":"yi ding","en":"surely; certainly; necessarily; definite","short_en":"surely; certainly; necessarily; definite","pos":"non-predicate adjective","audio":"yi2ding4.mp3"},{"ch":"还是","py":"háishi","plain":"hai shi","en":"or; still; nevertheless; had better","short_en":"or; still; nevertheless; had better","pos":"conjunction","audio":"hai2shi.mp3"},{"ch":"发","py":"fā","plain":"fa","en":"send out; to issue, utter; express;&nbsp;emit","short_en":"send out; to issue, utter; express;&nbsp;emit","pos":"verb","audio":"fa1.mp3"},{"ch":"发现","py":"fāxiàn","plain":"fa xian","en":"discover; to find","short_en":"discover; to find","pos":"verb","audio":"fa1xian4.mp3"},{"ch":"而且","py":"érqiě","plain":"er qie","en":"moreover; in addition; as well as","short_en":"moreover; in addition; as well as","pos":"conjunction","audio":"er2qie3.mp3"},{"ch":"必须","py":"bìxū","plain":"bi xu","en":"must; have to","short_en":"must; have to","pos":"adverb","audio":"bi4xu1.mp3"},{"ch":"放","py":"fàng","plain":"fang","en":"put; to place; to release; to free","short_en":"put; to place; to release; to free","pos":"verb","audio":"fang4.mp3"},{"ch":"为了","py":"wèile","plain":"wei le","en":"in order to; for the sake of; for the purpose of","short_en":"in order to; for the sake of; for the purpose of","pos":"preposition","audio":"wei4le.mp3"},{"ch":"向","py":"xiàng","plain":"xiang","en":"direction; towards; to turn; to face","short_en":"direction; towards; to turn; to face","pos":"preposition","audio":"xiang4.mp3"},{"ch":"老","py":"lǎo","plain":"lao","en":"old; aged; tough; often (Kangxi radical 125)","short_en":"old; aged; tough; often (Kangxi radical 125)","pos":"adjective","audio":"lao3.mp3"},{"ch":"位","py":"wèi","plain":"wei","en":"position; location; (polite mw for people)","short_en":"position; location; (polite mw for people)","pos":"classifier","audio":"wei4.mp3"},{"ch":"先","py":"xiān","plain":"xian","en":"first; early; before","short_en":"first; early; before","pos":"adverb","audio":"xian1.mp3"},{"ch":"种","py":"zhǒng","plain":"zhong","en":"kind; seed","short_en":"kind; seed","pos":"noun","audio":"zhong3.mp3"},{"ch":"最后","py":"zuìhòu","plain":"zui hou","en":"last; final; ultimately","short_en":"last; final; ultimately","pos":"directional locality","audio":"zui4hou4.mp3"},{"ch":"其他","py":"qítā","plain":"qi ta","en":"other; else","short_en":"other; else","pos":"pronoun","audio":"qi2ta1.mp3"},{"ch":"记得","py":"jìde","plain":"ji de","en":"remember","short_en":"remember","pos":"verb","audio":"ji4de.mp3"},{"ch":"或者","py":"huòzhě","plain":"huo zhe","en":"or; possible; maybe; perhaps","short_en":"or; possible; maybe; perhaps","pos":"conjunction","audio":"huo4zhe3.mp3"},{"ch":"过去","py":"guòqù","plain":"guo qu","en":"in the past; formerly","short_en":"in the past; formerly","pos":"time word","audio":"guo4qu4.mp3"},{"ch":"担心","py":"dānxīn","plain":"dan xin","en":"to worry; feel anxious","short_en":"to worry; feel anxious","pos":"verb","audio":"dan1xin1.mp3"},{"ch":"条","py":"tiáo","plain":"tiao","en":"twig; strip; item;&nbsp;m. (for long, narrow things)","short_en":"twig; strip; item;&nbsp;m. (for long, narrow things)","pos":"classifier","audio":"tiao2.mp3"},{"ch":"以前","py":"yǐqián","plain":"yi qian","en":"before; formerly; previous","short_en":"before; formerly; previous","pos":"directional locality","audio":"yi3qian2.mp3"},{"ch":"长","py":"zhǎng","plain":"zhang","en":"grow; grow up; increase (Kangxi radical 168)","short_en":"grow; grow up; increase (Kangxi radical 168)","pos":"verb","audio":"zhang3.mp3"},{"ch":"世界","py":"shìjiè","plain":"shi jie","en":"world","short_en":"world","pos":"noun","audio":"shi4jie4.mp3"},{"ch":"重要","py":"zhòngyào","plain":"zhong yao","en":"important; significant; major","short_en":"important; significant; major","pos":"adjective","audio":"zhong4yao4.mp3"},{"ch":"别人","py":"biéren","plain":"bie ren","en":"others; other people; another person","short_en":"others; other people; another person","pos":"pronoun","audio":"bie2ren.mp3"},{"ch":"机会","py":"jīhuì","plain":"ji hui","en":"chance; opportunity","short_en":"chance; opportunity","pos":"noun","audio":"ji1hui4.mp3"},{"ch":"张","py":"zhāng","plain":"zhang","en":"(mw for flat objects); spread; sheet of paper; (common surname)","short_en":"(mw for flat objects); spread; sheet of paper; (common surname)","pos":"personal name","audio":"zhang1.mp3"},{"ch":"接","py":"jiē","plain":"jie","en":"connect; to meet; to pick up (somebody); to receive","short_en":"connect; to meet; to pick up (somebody); to receive","pos":"verb","audio":"jie1.mp3"},{"ch":"比赛","py":"bǐsài","plain":"bi sai","en":"match; competition","short_en":"match; competition","pos":"verb with nominal function","audio":"bi3sai4.mp3"},{"ch":"关","py":"guān","plain":"guan","en":"to close; shut; concern; relationship; turn off; mountain pass","short_en":"to close; shut; concern; relationship; turn off; mountain pass","pos":"verb","audio":"guan1.mp3"},{"ch":"关系","py":"guānxi","plain":"guan xi","en":"relation; to concern","short_en":"relation; to concern","pos":"noun","audio":"guan1xi.mp3"},{"ch":"马","py":"mǎ","plain":"ma","en":"horse (Kangxi radical 187)","short_en":"horse (Kangxi radical 187)","pos":"personal name","audio":"ma3.mp3"},{"ch":"马上","py":"mǎshàng","plain":"ma shang","en":"at once; immediately; right away","short_en":"at once; immediately; right away","pos":"adverb","audio":"ma3shang4.mp3"},{"ch":"决定","py":"juédìng","plain":"jue ding","en":"decide; resolve; make up one's mind","short_en":"decide; resolve; make up one's mind","pos":"verb","audio":"jue2ding4.mp3"},{"ch":"关于","py":"guānyú","plain":"guan yu","en":"about; regarding; concerning","short_en":"about; regarding; concerning","pos":"preposition","audio":"guan1yu2.mp3"},{"ch":"难","py":"nán","plain":"nan","en":"difficult","short_en":"difficult","pos":"adjective as adverbial","audio":"nan2.mp3"},{"ch":"了解","py":"liǎojiě","plain":"liao jie","en":"comprehend; understand; know; find out","short_en":"comprehend; understand; know; find out","pos":"verb","audio":"liao3jie3.mp3"},{"ch":"站","py":"zhàn","plain":"zhan","en":"stand; a station; be on one's feet; service center","short_en":"stand; a station; be on one's feet; service center","pos":"verb","audio":"zhan4.mp3"},{"ch":"结束","py":"jiéshù","plain":"jie shu","en":"to end; to finish; conclude","short_en":"to end; to finish; conclude","pos":"verb","audio":"jie2shu4.mp3"},{"ch":"清楚","py":"qīngchu","plain":"qing chu","en":"clear; distinct; without ambiguity","short_en":"clear; distinct; without ambiguity","pos":"adjective","audio":"qing1chu.mp3"},{"ch":"愿意","py":"yuànyì","plain":"yuan yi","en":"be willing; want to; be ready","short_en":"be willing; want to; be ready","pos":"verb","audio":"yuan4yi4.mp3"},{"ch":"花","py":"huā","plain":"hua","en":"flower; blossom; spend money; cost","short_en":"flower; blossom; spend money; cost","pos":"verb","audio":"hua1.mp3"},{"ch":"照片","py":"zhàopiàn","plain":"zhao pian","en":"picture; photograph","short_en":"picture; photograph","pos":"noun","audio":"zhao4pian4.mp3"},{"ch":"欢迎","py":"huānyíng","plain":"huan ying","en":"to welcome; greet","short_en":"to welcome; greet","pos":"verb","audio":"huan1ying2.mp3"},{"ch":"总是","py":"zǒngshì","plain":"zong shi","en":"always; invariably","short_en":"always; invariably","pos":"adverb","audio":"zong3shi4.mp3"},{"ch":"嘴","py":"zuǐ","plain":"zui","en":"mouth","short_en":"mouth","pos":"noun","audio":"zui3.mp3"},{"ch":"参加","py":"cānjiā","plain":"can jia","en":"participate; join; take part in","short_en":"participate; join; take part in","pos":"verb","audio":"can1jia1.mp3"},{"ch":"办法","py":"bànfǎ","plain":"ban fa","en":"method; way (of doing something)","short_en":"method; way (of doing something)","pos":"noun","audio":"ban4fa3.mp3"},{"ch":"选择","py":"xuǎnzé","plain":"xuan ze","en":"select; to pick; choose","short_en":"select; to pick; choose","pos":"verb","audio":"xuan3ze2.mp3"},{"ch":"坏","py":"huài","plain":"huai","en":"bad; broken","short_en":"bad; broken","pos":"adjective","audio":"huai4.mp3"},{"ch":"打算","py":"dǎsuàn","plain":"da suan","en":"to plan; intend","short_en":"to plan; intend","pos":"verb","audio":"da3suan4.mp3"},{"ch":"试","py":"shì","plain":"shi","en":"to try; to test","short_en":"to try; to test","pos":"verb","audio":"shi4.mp3"},{"ch":"特别","py":"tèbié","plain":"te bie","en":"special; particular","short_en":"special; particular","pos":"adverb","audio":"te4bie2.mp3"},{"ch":"注意","py":"zhùyì","plain":"zhu yi","en":"pay attention to; take notice of; be careful","short_en":"pay attention to; take notice of; be careful","pos":"verb","audio":"zhu4yi4.mp3"},{"ch":"其实","py":"qíshí","plain":"qi shi","en":"as a matter of fact; actually; in fact","short_en":"as a matter of fact; actually; in fact","pos":"adverb","audio":"qi2shi2.mp3"},{"ch":"小心","py":"xiǎoxīn","plain":"xiao xin","en":"take care; be careful","short_en":"take care; be careful","pos":"adjective","audio":"xiao3xin1.mp3"},{"ch":"久","py":"jiǔ","plain":"jiu","en":"long (time)","short_en":"long (time)","pos":"adjective","audio":"jiu3.mp3"},{"ch":"只有","py":"zhǐyǒu","plain":"zhi you","en":"only; alone","short_en":"only; alone","pos":"conjunction","audio":"zhi3you3.mp3"},{"ch":"讲","py":"jiǎng","plain":"jiang","en":"to talk; to lecture; to explain; a speech","short_en":"to talk; to lecture; to explain; a speech","pos":"verb","audio":"jiang3.mp3"},{"ch":"故事","py":"gùshi","plain":"gu shi","en":"story; tale","short_en":"story; tale","pos":"noun","audio":"gu4shi.mp3"},{"ch":"换","py":"huàn","plain":"huan","en":"change; to exchange; to barter; to trade","short_en":"change; to exchange; to barter; to trade","pos":"verb","audio":"huan4.mp3"},{"ch":"结婚","py":"jiéhūn","plain":"jie hun","en":"get married","short_en":"get married","pos":"verb","audio":"jie2hun1.mp3"},{"ch":"段","py":"duàn","plain":"duan","en":"paragraph; segment; section","short_en":"paragraph; segment; section","pos":"classifier","audio":"duan4.mp3"},{"ch":"努力","py":"nǔlì","plain":"nu li","en":"make great effort; try hard","short_en":"make great effort; try hard","pos":"adjective as adverbial","audio":"nu3li4.mp3"},{"ch":"害怕","py":"hàipà","plain":"hai pa","en":"afraid of; to fear","short_en":"afraid of; to fear","pos":"verb","audio":"hai4pa4.mp3"},{"ch":"刚才","py":"gāngcái","plain":"gang cai","en":"just now; a moment ago","short_en":"just now; a moment ago","pos":"time word","audio":"gang1cai2.mp3"},{"ch":"节目","py":"jiémù","plain":"jie mu","en":"program; item (on a program)","short_en":"program; item (on a program)","pos":"noun","audio":"jie2mu4.mp3"},{"ch":"辆","py":"liàng","plain":"liang","en":"(mw for vehicles)","short_en":"(mw for vehicles)","pos":"classifier","audio":"liang4.mp3"},{"ch":"万","py":"wàn","plain":"wan","en":"ten thousand","short_en":"ten thousand","pos":"numeral","audio":"wan4.mp3"},{"ch":"解决","py":"jiějué","plain":"jie jue","en":"settle (a dispute); resolve; solve","short_en":"settle (a dispute); resolve; solve","pos":"verb","audio":"jie3jue2.mp3"},{"ch":"办公室","py":"bàngōngshì","plain":"ban gong shi","en":"office","short_en":"office","pos":"noun","audio":"ban4gong1shi4.mp3"},{"ch":"奇怪","py":"qíguài","plain":"qi guai","en":"strange; odd","short_en":"strange; odd","pos":"verb","audio":"qi2guai4.mp3"},{"ch":"同意","py":"tóngyì","plain":"tong yi","en":"agree; to consent; approve","short_en":"agree; to consent; approve","pos":"verb","audio":"tong2yi4.mp3"},{"ch":"游戏","py":"yóuxì","plain":"you xi","en":"game; play; recreation","short_en":"game; play; recreation","pos":"noun","audio":"you2xi4.mp3"},{"ch":"帮忙","py":"bāngmáng","plain":"bang mang","en":"to help","short_en":"to help","pos":"verb","audio":"bang1mang2.mp3"},{"ch":"国家","py":"guójiā","plain":"guo jia","en":"country; state; nation","short_en":"country; state; nation","pos":"noun","audio":"guo2jia1.mp3"},{"ch":"最近","py":"zuìjìn","plain":"zui jin","en":"recently; lately; soon; in the near future;","short_en":"recently; lately; soon; in the near future;","pos":"time word","audio":"zui4jin4.mp3"},{"ch":"声音","py":"shēngyīn","plain":"sheng yin","en":"sound; voice","short_en":"sound; voice","pos":"noun","audio":"sheng1yin1.mp3"},{"ch":"可爱","py":"kě'ài","plain":"ke ai","en":"cute; lovable; likable; lovely","short_en":"cute; lovable; likable; lovely","pos":"adjective","audio":"ke3'ai4.mp3"},{"ch":"分","py":"fēn","plain":"fen","en":"divide; fraction; minute","short_en":"divide; fraction; minute","pos":"verb","audio":"fen1.mp3"},{"ch":"完成","py":"wánchéng","plain":"wan cheng","en":"accomplish; complete; fulfill","short_en":"accomplish; complete; fulfill","pos":"verb","audio":"wan2cheng2.mp3"},{"ch":"半","py":"bàn","plain":"ban","en":"half; semi-; incomplete","short_en":"half; semi-; incomplete","pos":"numeral","audio":"ban4.mp3"},{"ch":"要求","py":"yāoqiú","plain":"yao qiu","en":"demand; request","short_en":"demand; request","pos":"verb","audio":"yao1qiu2.mp3"},{"ch":"除了","py":"chúle","plain":"chu le","en":"besides; except for; aside from; in addition to","short_en":"besides; except for; aside from; in addition to","pos":"preposition","audio":"chu2le.mp3"},{"ch":"容易","py":"róngyì","plain":"rong yi","en":"easy; likely; liable (to)","short_en":"easy; likely; liable (to)","pos":"adjective as adverbial","audio":"rong2yi4.mp3"},{"ch":"教","py":"jiāo","plain":"jiao","en":"teach","short_en":"teach","pos":"verb","audio":"jiao1.mp3"},{"ch":"脸","py":"liǎn","plain":"lian","en":"face","short_en":"face","pos":"noun","audio":"lian3.mp3"},{"ch":"简单","py":"jiǎndān","plain":"jian dan","en":"simple; not complicated","short_en":"simple; not complicated","pos":"adjective","audio":"jian3dan1.mp3"},{"ch":"检查","py":"jiǎnchá","plain":"jian cha","en":"to check; examine; inspect","short_en":"to check; examine; inspect","pos":"verb with nominal function","audio":"jian3cha2.mp3"},{"ch":"音乐","py":"yīnyuè","plain":"yin yue","en":"music","short_en":"music","pos":"noun","audio":"yin1yue4.mp3"},{"ch":"越","py":"yuè","plain":"yue","en":"the more...the more...","short_en":"the more...the more...","pos":"adverb","audio":"yue4.mp3"},{"ch":"照顾","py":"zhàogù","plain":"zhao gu","en":"take care of; look after; give consideration","short_en":"take care of; look after; give consideration","pos":"verb","audio":"zhao4gu4.mp3"},{"ch":"聪明","py":"cōngming","plain":"cong ming","en":"intelligent; clever; bright; smart","short_en":"intelligent; clever; bright; smart","pos":"adjective","audio":"cong1ming.mp3"},{"ch":"甜","py":"tián","plain":"tian","en":"sweet","short_en":"sweet","pos":"adjective","audio":"tian2.mp3"},{"ch":"突然","py":"tūrán","plain":"tu ran","en":"suddenly; abruptly","short_en":"suddenly; abruptly","pos":"adjective as adverbial","audio":"tu1ran2.mp3"},{"ch":"终于","py":"zhōngyú","plain":"zhong yu","en":"at last; in the end; finally","short_en":"at last; in the end; finally","pos":"adverb","audio":"zhong1yu2.mp3"},{"ch":"船","py":"chuán","plain":"chuan","en":"a boat; vessel; ship","short_en":"a boat; vessel; ship","pos":"noun","audio":"chuan2.mp3"},{"ch":"口","py":"kǒu","plain":"kou","en":"mouth (Kangxi radical 30)","short_en":"mouth (Kangxi radical 30)","pos":"classifier","audio":"kou3.mp3"},{"ch":"回答","py":"huídá","plain":"hui da","en":"to reply; to answer","short_en":"to reply; to answer","pos":"verb","audio":"hui2da2.mp3"},{"ch":"礼物","py":"lǐwù","plain":"li wu","en":"gift; present","short_en":"gift; present","pos":"noun","audio":"li3wu4.mp3"},{"ch":"头发","py":"tóufa","plain":"tou fa","en":"hair (on the head)","short_en":"hair (on the head)","pos":"noun","audio":"tou2fa.mp3"},{"ch":"关心","py":"guānxīn","plain":"guan xin","en":"be concerned about; be interested in","short_en":"be concerned about; be interested in","pos":"verb","audio":"guan1xin1.mp3"},{"ch":"脚","py":"jiǎo","plain":"jiao","en":"foot (body part)","short_en":"foot (body part)","pos":"noun","audio":"jiao3.mp3"},{"ch":"生气","py":"shēngqì","plain":"sheng qi","en":"angry; mad","short_en":"angry; mad","pos":"adjective","audio":"sheng1qi4.mp3"},{"ch":"哭","py":"kū","plain":"ku","en":"cry; weep","short_en":"cry; weep","pos":"verb","audio":"ku1.mp3"},{"ch":"画","py":"huà","plain":"hua","en":"draw; picture; painting","short_en":"draw; picture; painting","pos":"verb","audio":"hua4.mp3"},{"ch":"年轻","py":"niánqīng","plain":"nian qing","en":"young","short_en":"young","pos":"adjective","audio":"nian2qing1.mp3"},{"ch":"包","py":"bāo","plain":"bao","en":"to cover; to wrap; to hold; include; (mw for containers, packages, etc.)","short_en":"to cover; to wrap; to hold; include; (mw for containers, packages, etc.)","pos":"verb","audio":"bao1.mp3"},{"ch":"腿","py":"tuǐ","plain":"tui","en":"leg","short_en":"leg","pos":"noun","audio":"tui3.mp3"},{"ch":"忘记","py":"wàngjì","plain":"wang ji","en":"forget; overlook; neglect","short_en":"forget; overlook; neglect","pos":"verb","audio":"wang4ji4.mp3"},{"ch":"搬","py":"bān","plain":"ban","en":"to move; to transport","short_en":"to move; to transport","pos":"verb","audio":"ban1.mp3"},{"ch":"楼","py":"lóu","plain":"lou","en":"building, story","short_en":"building, story","pos":"noun","audio":"lou2.mp3"},{"ch":"遇到","py":"yùdào","plain":"yu dao","en":"come across; run into; encounter; meet","short_en":"come across; run into; encounter; meet","pos":"verb","audio":"yu4dao4.mp3"},{"ch":"新闻","py":"xīnwén","plain":"xin wen","en":"news","short_en":"news","pos":"noun","audio":"xin1wen2.mp3"},{"ch":"比较","py":"bǐjiào","plain":"bi jiao","en":"compare; contrast; relatively","short_en":"compare; contrast; relatively","pos":"adverb","audio":"bi3jiao4.mp3"},{"ch":"双","py":"shuāng","plain":"shuang","en":"two; double; (mw for pairs)","short_en":"two; double; (mw for pairs)","pos":"numeral","audio":"shuang1.mp3"},{"ch":"见面","py":"jiànmiàn","plain":"jian mian","en":"meet/see somebody (face to face); meeting","short_en":"meet/see somebody (face to face); meeting","pos":"verb","audio":"jian4mian4.mp3"},{"ch":"经常","py":"jīngcháng","plain":"jing chang","en":"often; frequently; daily","short_en":"often; frequently; daily","pos":"adverb","audio":"jing1chang2.mp3"},{"ch":"城市","py":"chéngshì","plain":"cheng shi","en":"city or town","short_en":"city or town","pos":"noun","audio":"cheng2shi4.mp3"},{"ch":"一会儿","py":"yíhuìr","plain":"yi hui r","en":"a while; a moment","short_en":"a while; a moment","pos":"numeral","audio":"yi2hui4r.mp3"},{"ch":"附近","py":"fùjìn","plain":"fu jin","en":"(in the) vicinity; nearby; neighboring","short_en":"(in the) vicinity; nearby; neighboring","pos":"directional locality","audio":"fu4jin4.mp3"},{"ch":"借","py":"jiè","plain":"jie","en":"lend; borrow; excuse","short_en":"lend; borrow; excuse","pos":"verb","audio":"jie4.mp3"},{"ch":"影响","py":"yǐngxiǎng","plain":"ying xiang","en":"influence; affect; effect","short_en":"influence; affect; effect","pos":"verb with nominal function","audio":"ying3xiang3.mp3"},{"ch":"认真","py":"rènzhēn","plain":"ren zhen","en":"take seriously","short_en":"take seriously","pos":"v.o.","audio":"ren4zhen1.mp3"},{"ch":"米","py":"mǐ","plain":"mi","en":"rice; meter (Kangxi radical 119)","short_en":"rice; meter (Kangxi radical 119)","pos":"classifier","audio":"mi3.mp3"},{"ch":"差","py":"chà","plain":"cha","en":"differ from; fall short of; poor; inferior","short_en":"differ from; fall short of; poor; inferior","pos":"adjective","audio":"cha4.mp3"},{"ch":"银行","py":"yínháng","plain":"yin hang","en":"bank","short_en":"bank","pos":"noun","audio":"yin2hang2.mp3"},{"ch":"安静","py":"ānjìng","plain":"an jing","en":"quiet; peaceful; calm","short_en":"quiet; peaceful; calm","pos":"adjective","audio":"an1jing4.mp3"},{"ch":"多么","py":"duōme","plain":"duo me","en":"how (wonderful, etc.); what (a great idea)","short_en":"how (wonderful, etc.); what (a great idea)","pos":"adverb","audio":"duo1me.mp3"},{"ch":"饿","py":"è","plain":"e","en":"hungry","short_en":"hungry","pos":"verb","audio":"e4.mp3"},{"ch":"根据","py":"gēnjù","plain":"gen ju","en":"on the basis of; according to","short_en":"on the basis of; according to","pos":"preposition","audio":"gen1ju4.mp3"},{"ch":"几乎","py":"jīhū","plain":"ji hu","en":"almost","short_en":"almost","pos":"adverb","audio":"ji1hu1.mp3"},{"ch":"后来","py":"hòulái","plain":"hou lai","en":"afterwards; after; later","short_en":"afterwards; after; later","pos":"time word","audio":"hou4lai2.mp3"},{"ch":"动物","py":"dòngwù","plain":"dong wu","en":"animal","short_en":"animal","pos":"noun","audio":"dong4wu4.mp3"},{"ch":"西","py":"xī","plain":"xi","en":"West (Kangxi radical 146)","short_en":"West (Kangxi radical 146)","pos":"directional locality","audio":"xi1.mp3"},{"ch":"一边","py":"yī̠biān","plain":"yi bian","en":"one side; on the one hand; at the same time","short_en":"one side; on the one hand; at the same time","pos":"adverb","audio":"yi1bian1.mp3"},{"ch":"舒服","py":"shūfu","plain":"shu fu","en":"comfortable; feeling well","short_en":"comfortable; feeling well","pos":"adjective","audio":"shu1fu.mp3"},{"ch":"一般","py":"yī̠bān","plain":"yi ban","en":"general; ordinary; common; same","short_en":"general; ordinary; common; same","pos":"adjective","audio":"yi4ban1.mp3"},{"ch":"叔叔","py":"shūshu","plain":"shu shu","en":"(informal) father's younger brother; uncle","short_en":"(informal) father's younger brother; uncle","pos":"noun","audio":"shu1shu.mp3"},{"ch":"疼","py":"téng","plain":"teng","en":"ache; sore; (it) hurts; love fondly","short_en":"ache; sore; (it) hurts; love fondly","pos":"adjective","audio":"teng2.mp3"},{"ch":"迟到","py":"chídào","plain":"chi dao","en":"be/come/arrive late","short_en":"be/come/arrive late","pos":"verb","audio":"chi2dao4.mp3"},{"ch":"历史","py":"lìshǐ","plain":"li shi","en":"history; past records","short_en":"history; past records","pos":"noun","audio":"li4shi3.mp3"},{"ch":"啤酒","py":"píjiǔ","plain":"pi jiu","en":"beer","short_en":"beer","pos":"noun","audio":"pi2jiu3.mp3"},{"ch":"短","py":"duǎn","plain":"duan","en":"short (opposite of 长 cháng)","short_en":"short (opposite of 长 cháng)","pos":"adjective","audio":"duan3.mp3"},{"ch":"经过","py":"jīngguò","plain":"jing guo","en":"to pass; go through; as a result of","short_en":"to pass; go through; as a result of","pos":"preposition","audio":"jing1guo4.mp3"},{"ch":"周末","py":"zhōumò","plain":"zhou mo","en":"weekend","short_en":"weekend","pos":"time word","audio":"zhou1mo4.mp3"},{"ch":"班","py":"bān","plain":"ban","en":"class; work","short_en":"class; work","pos":"noun","audio":"ban1.mp3"},{"ch":"习惯","py":"xíguàn","plain":"xi guan","en":"habit; be accustomed to; usual practice","short_en":"habit; be accustomed to; usual practice","pos":"noun","audio":"xi2guan4.mp3"},{"ch":"公园","py":"gōngyuán","plain":"gong yuan","en":"park; garden","short_en":"park; garden","pos":"noun","audio":"gong1yuan2.mp3"},{"ch":"干净","py":"gānjìng","plain":"gan jing","en":"clean; neat and tidy","short_en":"clean; neat and tidy","pos":"adjective","audio":"gan1jing4.mp3"},{"ch":"鸟","py":"niǎo","plain":"niao","en":"bird (Kangxi radical 196)","short_en":"bird (Kangxi radical 196)","pos":"noun","audio":"niao3.mp3"},{"ch":"健康","py":"jiànkāng","plain":"jian kang","en":"health; healthy","short_en":"health; healthy","pos":"adjective with nominal function","audio":"jian4kang1.mp3"},{"ch":"树","py":"shù","plain":"shu","en":"tree","short_en":"tree","pos":"noun","audio":"shu4.mp3"},{"ch":"蛋糕","py":"dàngāo","plain":"dan gao","en":"cake","short_en":"cake","pos":"noun","audio":"dan4gao1.mp3"},{"ch":"元","py":"yuán","plain":"yuan","en":"Chinese monetary unit; dollar; first; principal, primary;","short_en":"Chinese monetary unit; dollar; first; principal, primary;","pos":"classifier","audio":"yuan2.mp3"},{"ch":"客人","py":"kèren","plain":"ke ren","en":"guest; customer","short_en":"guest; customer","pos":"noun","audio":"ke4ren.mp3"},{"ch":"会议","py":"huìyì","plain":"hui yi","en":"meeting; conference","short_en":"meeting; conference","pos":"noun","audio":"hui4yi4.mp3"},{"ch":"奶奶","py":"nǎinai","plain":"nai nai","en":"grandma; (informal) paternal grandmother","short_en":"grandma; (informal) paternal grandmother","pos":"noun","audio":"nai3nai.mp3"},{"ch":"裤子","py":"kùzi","plain":"ku zi","en":"pants; trousers","short_en":"pants; trousers","pos":"noun","audio":"ku4zi.mp3"},{"ch":"邻居","py":"línjū","plain":"lin ju","en":"neighbor","short_en":"neighbor","pos":"noun","audio":"lin2ju1.mp3"},{"ch":"经理","py":"jīnglǐ","plain":"jing li","en":"manager; director","short_en":"manager; director","pos":"noun","audio":"jing1li3.mp3"},{"ch":"层","py":"céng","plain":"ceng","en":"layer, level, storey","short_en":"layer, level, storey","pos":"classifier","audio":"ceng2.mp3"},{"ch":"灯","py":"dēng","plain":"deng","en":"lamp; light","short_en":"lamp; light","pos":"noun","audio":"deng1.mp3"},{"ch":"练习","py":"liànxí","plain":"lian xi","en":"practice; exercise","short_en":"practice; exercise","pos":"verb","audio":"lian4xi2.mp3"},{"ch":"爷爷","py":"yéye","plain":"ye ye","en":"(informal) father's father; paternal grandfather","short_en":"(informal) father's father; paternal grandfather","pos":"noun","audio":"ye2ye.mp3"},{"ch":"蓝","py":"lán","plain":"lan","en":"blue","short_en":"blue","pos":"adjective","audio":"lan2.mp3"},{"ch":"难过","py":"nánguò","plain":"nan guo","en":"be grieved; be sad; have a hard time","short_en":"be grieved; be sad; have a hard time","pos":"adjective","audio":"nan2guo4.mp3"},{"ch":"中间","py":"zhōngjiān","plain":"zhong jian","en":"center; middle; between; among","short_en":"center; middle; between; among","pos":"directional locality","audio":"zhong1jian1.mp3"},{"ch":"帽子","py":"màozi","plain":"mao zi","en":"hat; cap","short_en":"hat; cap","pos":"noun","audio":"mao4zi.mp3"},{"ch":"司机","py":"sījī","plain":"si ji","en":"driver; chauffeur","short_en":"driver; chauffeur","pos":"noun","audio":"si1ji1.mp3"},{"ch":"旧","py":"jiù","plain":"jiu","en":"old; past; used","short_en":"old; past; used","pos":"adjective","audio":"jiu4.mp3"},{"ch":"满意","py":"mǎnyì","plain":"man yi","en":"satisfied; pleased","short_en":"satisfied; pleased","pos":"verb","audio":"man3yi4.mp3"},{"ch":"骑","py":"qí","plain":"qi","en":"to ride (an animal or bike); to sit astride","short_en":"to ride (an animal or bike); to sit astride","pos":"verb","audio":"qi2.mp3"},{"ch":"太阳","py":"tàiyáng","plain":"tai yang","en":"the sun","short_en":"the sun","pos":"noun","audio":"tai4yang2.mp3"},{"ch":"极","py":"jí","plain":"ji","en":"an extreme; pole; very","short_en":"an extreme; pole; very","pos":"adverb","audio":"ji2.mp3"},{"ch":"主要","py":"zhǔyào","plain":"zhu yao","en":"main; principal; major","short_en":"main; principal; major","pos":"non-predicate adjective","audio":"zhu3yao4.mp3"},{"ch":"同事","py":"tóngshì","plain":"tong shi","en":"colleague; co-worker","short_en":"colleague; co-worker","pos":"noun","audio":"tong2shi4.mp3"},{"ch":"鼻子","py":"bízi","plain":"bi zi","en":"nose","short_en":"nose","pos":"noun","audio":"bi2zi.mp3"},{"ch":"角","py":"jiǎo","plain":"jiao","en":"horn; angle; unit of money (1/10 yuan); corner (Kangxi radical 148)","short_en":"horn; angle; unit of money (1/10 yuan); corner (Kangxi radical 148)","pos":"classifier","audio":"jiao3.mp3"},{"ch":"变化","py":"biànhuà","plain":"bian hua","en":"change; vary","short_en":"change; vary","pos":"verb with nominal function","audio":"bian4hua4.mp3"},{"ch":"东","py":"dōng","plain":"dong","en":"East","short_en":"East","pos":"directional locality","audio":"dong1.mp3"},{"ch":"年级","py":"niánjí","plain":"nian ji","en":"grade; year (in school)","short_en":"grade; year (in school)","pos":"noun","audio":"nian2ji2.mp3"},{"ch":"环境","py":"huánjìng","plain":"huan jing","en":"environment; surroundings;&nbsp;situation","short_en":"environment; surroundings;&nbsp;situation","pos":"noun","audio":"huan2jing4.mp3"},{"ch":"胖","py":"pàng","plain":"pang","en":"fat; plump","short_en":"fat; plump","pos":"adjective","audio":"pang4.mp3"},{"ch":"地图","py":"dìtú","plain":"di tu","en":"map;&nbsp;atlas","short_en":"map;&nbsp;atlas","pos":"noun","audio":"di4tu2.mp3"},{"ch":"面包","py":"miànbāo","plain":"mian bao","en":"bread","short_en":"bread","pos":"noun","audio":"mian4bao1.mp3"},{"ch":"电子邮件","py":"diànzǐ yóujiàn","plain":"dian zi you jian","en":"email","short_en":"email","pos":"noun","audio":"dian4zi3you2jian4.mp3"},{"ch":"耳朵","py":"ěrduo","plain":"er duo","en":"ear","short_en":"ear","pos":"noun","audio":"er3duo.mp3"},{"ch":"裙子","py":"qúnzi","plain":"qun zi","en":"skirt; petticoat","short_en":"skirt; petticoat","pos":"noun","audio":"qun2zi.mp3"},{"ch":"新鲜","py":"xīnxiān","plain":"xin xian","en":"fresh (experience, food, etc.); new; novel","short_en":"fresh (experience, food, etc.); new; novel","pos":"adjective","audio":"xin1xian1.mp3"},{"ch":"放心","py":"fàng xīn","plain":"fang xin","en":"set one's mind at rest; rest assured; feel relieved","short_en":"set one's mind at rest; rest assured; feel relieved","pos":"verb","audio":"fang4xin1.mp3"},{"ch":"聊天","py":"liáotiān","plain":"liao tian","en":"chat; gossip","short_en":"chat; gossip","pos":"verb","audio":"liao2tian1.mp3"},{"ch":"南","py":"nán","plain":"nan","en":"South","short_en":"South","pos":"personal name","audio":"nan2.mp3"},{"ch":"热情","py":"rèqíng","plain":"re qing","en":"enthusiastic; passionate","short_en":"enthusiastic; passionate","pos":"adjective with nominal function","audio":"re4qing2.mp3"},{"ch":"信用卡","py":"xìnyòngkǎ","plain":"xin yong ka","en":"credit card","short_en":"credit card","pos":"noun","audio":"xin4yong4ka3.mp3"},{"ch":"电梯","py":"diàntī","plain":"dian ti","en":"elevator","short_en":"elevator","pos":"noun","audio":"dian4ti1.mp3"},{"ch":"方便","py":"fāngbiàn","plain":"fang bian","en":"convenient","short_en":"convenient","pos":"adjective","audio":"fang1bian4.mp3"},{"ch":"洗手间","py":"xị̌shǒujiān","plain":"xi shou jian","en":"toilet; lavatory; washroom","short_en":"toilet; lavatory; washroom","pos":"noun","audio":"xi3shou3jian1.mp3"},{"ch":"洗澡","py":"xǐzǎo","plain":"x z o","en":"take a bath","short_en":"take a bath","pos":"verb","audio":"xi3zao3.mp3"},{"ch":"饮料","py":"yǐnliào","plain":"yin liao","en":"beverage; drink","short_en":"beverage; drink","pos":"noun","audio":"yin3liao4.mp3"},{"ch":"校长","py":"xiàozhǎng","plain":"xiao zhang","en":"principal (of school, college or university); president; headmaster","short_en":"principal (of school, college or university); president; headmaster","pos":"noun","audio":"xiao4zhang3.mp3"},{"ch":"水平","py":"shuǐpíng","plain":"shui ping","en":"standard; level; proficiency","short_en":"standard; level; proficiency","pos":"noun","audio":"shui3ping2.mp3"},{"ch":"作业","py":"zuòyè","plain":"zuo ye","en":"school assignment; homework; task","short_en":"school assignment; homework; task","pos":"verb with nominal function","audio":"zuo4ye4.mp3"},{"ch":"衬衫","py":"chènshān","plain":"chen shan","en":"shirt; blouse","short_en":"shirt; blouse","pos":"noun","audio":"chen4shan1.mp3"},{"ch":"成绩","py":"chéngjì","plain":"cheng ji","en":"result; achievement; success","short_en":"result; achievement; success","pos":"noun","audio":"cheng2ji4.mp3"},{"ch":"碗","py":"wǎn","plain":"wan","en":"bowl; cup","short_en":"bowl; cup","pos":"noun","audio":"wan3.mp3"},{"ch":"阿姨","py":"āyí","plain":"a yi","en":"auntie; step-mother; mother's younger sister","short_en":"auntie; step-mother; mother's younger sister","pos":"noun","audio":"a1yi2.mp3"},{"ch":"图书馆","py":"túshūguǎn","plain":"tu shu guan","en":"library","short_en":"library","pos":"noun","audio":"tu2shu1guan3.mp3"},{"ch":"文化","py":"wénhuà","plain":"wen hua","en":"culture; civilization","short_en":"culture; civilization","pos":"noun","audio":"wen2hua4.mp3"},{"ch":"绿","py":"lǜ","plain":"lv","en":"green","short_en":"green","pos":"adjective","audio":"lv4.mp3"},{"ch":"打扫","py":"dạ̌sǎo","plain":"da sao","en":"to clean; to sweep","short_en":"to clean; to sweep","pos":"verb","audio":"da3sao3.mp3"},{"ch":"草","py":"cǎo","plain":"cao","en":"grass; straw; draft (of a document)","short_en":"grass; straw; draft (of a document)","pos":"noun","audio":"cao3.mp3"},{"ch":"冰箱","py":"bīngxiāng","plain":"bing xiang","en":"refrigerator; freezer","short_en":"refrigerator; freezer","pos":"noun","audio":"bing1xiang1.mp3"},{"ch":"数学","py":"shùxué","plain":"shu xue","en":"mathematics","short_en":"mathematics","pos":"noun","audio":"shu4xue2.mp3"},{"ch":"自行车","py":"zìxíngchē","plain":"zi xing che","en":"bike; bicycle","short_en":"bike; bicycle","pos":"noun","audio":"zi4xing2che1.mp3"},{"ch":"着急","py":"zháojí","plain":"zhao ji","en":"to worry; feel anxious","short_en":"to worry; feel anxious","pos":"adjective","audio":"zhao2ji2.mp3"},{"ch":"瘦","py":"shòu","plain":"shou","en":"thin; tight; lean","short_en":"thin; tight; lean","pos":"adjective","audio":"shou4.mp3"},{"ch":"提高","py":"tígāo","plain":"ti gao","en":"to raise; heighten; improve","short_en":"to raise; heighten; improve","pos":"verb","audio":"ti2gao1.mp3"},{"ch":"起飞","py":"qǐfēi","plain":"qi fei","en":"take off (in an airplane); liftoff","short_en":"take off (in an airplane); liftoff","pos":"verb","audio":"qi3fei1.mp3"},{"ch":"矮","py":"ǎi","plain":"ai","en":"short (not tall); low","short_en":"short (not tall); low","pos":"adjective","audio":"ai3.mp3"},{"ch":"地铁","py":"dìtiě","plain":"di tie","en":"underground (railway); subway","short_en":"underground (railway); subway","pos":"noun","audio":"di4tie3.mp3"},{"ch":"体育","py":"tǐyù","plain":"ti yu","en":"physical education/training; sports","short_en":"physical education/training; sports","pos":"noun","audio":"ti3yu4.mp3"},{"ch":"刻","py":"kè","plain":"ke","en":"quarter (hour); (mw for short time intervals); carve; to cut","short_en":"quarter (hour); (mw for short time intervals); carve; to cut","pos":"verb","audio":"ke4.mp3"},{"ch":"护照","py":"hùzhào","plain":"hu zhao","en":"passport","short_en":"passport","pos":"noun","audio":"hu4zhao4.mp3"},{"ch":"节日","py":"jiérì","plain":"jie ri","en":"festival; holiday","short_en":"festival; holiday","pos":"noun","audio":"jie2ri4.mp3"},{"ch":"盘子","py":"pánzi","plain":"pan zi","en":"plate; dish; tray","short_en":"plate; dish; tray","pos":"noun","audio":"pan2zi.mp3"},{"ch":"一共","py":"yị̄gòng","plain":"yi gong","en":"altogether; in all; all told","short_en":"altogether; in all; all told","pos":"adverb","audio":"yi2gong4.mp3"},{"ch":"瓶子","py":"píngzi","plain":"ping zi","en":"bottle","short_en":"bottle","pos":"noun","audio":"ping2zi.mp3"},{"ch":"街道","py":"jiēdào","plain":"jie dao","en":"street","short_en":"street","pos":"noun","audio":"jie1dao4.mp3"},{"ch":"锻炼","py":"duànliàn","plain":"duan lian","en":"to exercise; work out; toughen; to temper","short_en":"to exercise; work out; toughen; to temper","pos":"verb with nominal function","audio":"duan4lian4.mp3"},{"ch":"感冒","py":"gǎnmào","plain":"gan mao","en":"catch cold; (common) cold","short_en":"catch cold; (common) cold","pos":"verb","audio":"gan3mao4.mp3"},{"ch":"爱好","py":"àihào","plain":"ai hao","en":"hobby; fond of; to like; interest","short_en":"hobby; fond of; to like; interest","pos":"noun","audio":"ai4hao4.mp3"},{"ch":"超市","py":"chāoshì","plain":"chao shi","en":"supermarket","short_en":"supermarket","pos":"noun","audio":"chao1shi4.mp3"},{"ch":"月亮","py":"yuèliang","plain":"yue liang","en":"the moon","short_en":"the moon","pos":"noun","audio":"yue4liang.mp3"},{"ch":"饱","py":"bǎo","plain":"bao","en":"eat until full; satisfied","short_en":"eat until full; satisfied","pos":"adjective","audio":"bao3.mp3"},{"ch":"有名","py":"yǒumíng","plain":"you ming","en":"famous; well-known","short_en":"famous; well-known","pos":"adjective","audio":"you3ming2.mp3"},{"ch":"香蕉","py":"xiāngjiāo","plain":"xiang jiao","en":"banana","short_en":"banana","pos":"noun","audio":"xiang1jiao1.mp3"},{"ch":"笔记本","py":"bǐjìběn","plain":"bi ji ben","en":"notebook","short_en":"notebook","pos":"noun","audio":"bi3ji4ben3.mp3"},{"ch":"夏","py":"xià","plain":"xia","en":"summer","short_en":"summer","pos":"time word morpheme","audio":"xia4.mp3"},{"ch":"菜单","py":"càidān","plain":"cai dan","en":"menu","short_en":"menu","pos":"noun","audio":"cai4dan1.mp3"},{"ch":"北方","py":"běifāng","plain":"bei fang","en":"north; the northern part of the country","short_en":"north; the northern part of the country","pos":"space word","audio":"bei3fang1.mp3"},{"ch":"上网","py":"shàngwǎng","plain":"shang wang","en":"to surf the web; to go online","short_en":"to surf the web; to go online","pos":"verb","audio":"shang4wang3.mp3"},{"ch":"季节","py":"jìjié","plain":"ji jie","en":"season; time; period","short_en":"season; time; period","pos":"noun","audio":"ji4jie2.mp3"},{"ch":"渴","py":"kě","plain":"ke","en":"thirsty","short_en":"thirsty","pos":"adjective","audio":"ke3.mp3"},{"ch":"发烧","py":"fāshāo","plain":"fa shao","en":"have a fever","short_en":"have a fever","pos":"verb","audio":"fa1shao1.mp3"},{"ch":"不但","py":"bụ̀dàn","plain":"bu dan","en":"not only","short_en":"not only","pos":"conjunction","audio":"bu2dan4.mp3"},{"ch":"空调","py":"kōngtiáo","plain":"kong tiao","en":"air-conditioner; air-conditioning","short_en":"air-conditioner; air-conditioning","pos":"noun","audio":"kong1tiao2.mp3"},{"ch":"照相机","py":"zhàoxiàngjī","plain":"zhao xiang ji","en":"camera","short_en":"camera","pos":"noun","audio":"zhao4xiang4ji1.mp3"},{"ch":"春","py":"chūn","plain":"chun","en":"spring (season); joyful","short_en":"spring (season); joyful","pos":"time word morpheme","audio":"chun1.mp3"},{"ch":"伞","py":"sǎn","plain":"san","en":"umbrella; parasol","short_en":"umbrella; parasol","pos":"noun","audio":"san3.mp3"},{"ch":"公斤","py":"gōngjīn","plain":"gong jin","en":"kilogram","short_en":"kilogram","pos":"classifier","audio":"gong1jin1.mp3"},{"ch":"个子","py":"gèzi","plain":"ge zi","en":"height; stature; build","short_en":"height; stature; build","pos":"noun","audio":"ge4zi.mp3"},{"ch":"熊猫","py":"xióngmāo","plain":"xiong mao","en":"panda","short_en":"panda","pos":"noun","audio":"xiong2mao1.mp3"},{"ch":"刷牙","py":"shuāyá","plain":"shua ya","en":"brush one's teeth","short_en":"brush one's teeth","pos":"verb","audio":"shua1ya2.mp3"},{"ch":"复习","py":"fùxí","plain":"fu xi","en":"review; revise","short_en":"review; revise","pos":"verb with nominal function","audio":"fu4xi2.mp3"},{"ch":"冬","py":"dōng","plain":"dong","en":"winter","short_en":"winter","pos":"time word morpheme","audio":"dong1.mp3"},{"ch":"请假","py":"qǐng jià","plain":"qing jia","en":"to ask for time off,&nbsp;ask for leave","short_en":"to ask for time off,&nbsp;ask for leave","pos":"verb","audio":"qing3jia4.mp3"},{"ch":"中文","py":"Zhōngwén","plain":"zhong wen","en":"Chinese (written) language","short_en":"Chinese (written) language","pos":"other proper noun","audio":"zhong1wen2.mp3"},{"ch":"秋","py":"qiū","plain":"qiu","en":"autumn; fall; harvest time","short_en":"autumn; fall; harvest time","pos":"time word morpheme","audio":"qiu1.mp3"},{"ch":"句子","py":"jùzi","plain":"ju zi","en":"sentence","short_en":"sentence","pos":"noun","audio":"ju4zi.mp3"},{"ch":"行李箱","py":"xínglǐxiāng","plain":"xing li xiang","en":"trunk; suitcase","short_en":"trunk; suitcase","pos":"noun","audio":"19880zht.mp3"},{"ch":"筷子","py":"kuàizi","plain":"kuai zi","en":"chopsticks","short_en":"chopsticks","pos":"noun","audio":"kuai4zi.mp3"},{"ch":"皮鞋","py":"píxié","plain":"pi xie","en":"leather shoes","short_en":"leather shoes","pos":"noun","audio":"19979lwh.mp3"},{"ch":"爬山","py":"páshān","plain":"pa shan","en":"mountain climbing","short_en":"mountain climbing","pos":"verb","audio":"pa2shan1.mp3"},{"ch":"黑板","py":"hēibǎn","plain":"hei ban","en":"blackboard","short_en":"blackboard","pos":"noun","audio":"hei1ban3.mp3"},{"ch":"感兴趣","py":"gǎn xìngqù","plain":"gan xing qu","en":"be interested in","short_en":"be interested in","pos":"adjective","audio":"gan3xing4qu4.mp3"},{"ch":"词典","py":"cídiǎn","plain":"ci dian","en":"dictionary","short_en":"dictionary","pos":"noun","audio":"ci2dian3.mp3"},{"ch":"留学","py":"liú xué","plain":"liu xue","en":"study abroad","short_en":"study abroad","pos":"verb","audio":"liu2xue2.mp3"},{"ch":"刮风","py":"guāfēng","plain":"gua feng","en":"windy; to blow (wind)","short_en":"windy; to blow (wind)","pos":"verb","audio":"986zl.mp3"},{"ch":"黄河","py":"huánghé","plain":"huang he","en":"Yellow River","short_en":"Yellow River","pos":"place name","audio":"huang2he2.mp3"}];
+const B1=[{"ch":"的","py":"de","plain":"de","en":"indicates possession, like adding 's to a noun","pos":"auxiliary","audio":"de.mp3"},{"ch":"我","py":"wǒ","plain":"wo","en":"I; me","pos":"pronoun","audio":"wo3.mp3"},{"ch":"你","py":"nǐ","plain":"ni","en":"you (singular)","pos":"pronoun","audio":"ni3.mp3"},{"ch":"是","py":"shì","plain":"shi","en":"be; is; are; am","pos":"verb","audio":"shi4.mp3"},{"ch":"了","py":"le","plain":"le","en":"indicates a completed or finished action","pos":"auxiliary","audio":"le.mp3"},{"ch":"不","py":"bù","plain":"bu","en":"no; not","pos":"adverb","audio":"bu4.mp3"},{"ch":"在","py":"zài","plain":"zai","en":"at; on; in; indicates an action in progress","pos":"preposition","audio":"zai4.mp3"},{"ch":"他","py":"tā","plain":"ta","en":"he; him","pos":"pronoun","audio":"ta1.mp3"},{"ch":"我们","py":"wǒmen","plain":"wo men","en":"we; us","pos":"pronoun","audio":"wo3men.mp3"},{"ch":"好","py":"hǎo","plain":"hao","en":"good","pos":"adjective","audio":"hao3.mp3"},{"ch":"有","py":"yǒu","plain":"you","en":"have","pos":"verb","audio":"you3.mp3"},{"ch":"这","py":"zhè","plain":"zhe","en":"this","pos":"preposition","audio":"zhe4.mp3"},{"ch":"会","py":"huì","plain":"hui","en":"meet; can, able","pos":"verb","audio":"hui4.mp3"},{"ch":"吗","py":"ma","plain":"ma","en":"indicates a yes/no question (added to a statement)","pos":"modal particle","audio":"ma.mp3"},{"ch":"什么","py":"shénme","plain":"shen me","en":"what? (replaces the noun to turn a statement into a question)","pos":"pronoun","audio":"shen2me.mp3"},{"ch":"说","py":"shuō","plain":"shuo","en":"speak","pos":"verb","audio":"shuo1.mp3"},{"ch":"她","py":"tā","plain":"ta","en":"she","pos":"pronoun","audio":"ta1.mp3"},{"ch":"想","py":"xiǎng","plain":"xiang","en":"think; believe; suppose; would like to","pos":"verb","audio":"xiang3.mp3"},{"ch":"一","py":"yī","plain":"yi","en":"one; once; a","pos":"numeral","audio":"yi1.mp3"},{"ch":"很","py":"hěn","plain":"hen","en":"very; quite","pos":"adverb","audio":"hen3.mp3"},{"ch":"人","py":"rén","plain":"ren","en":"person; man; people","pos":"noun","audio":"ren2.mp3"},{"ch":"那","py":"nà","plain":"na","en":"that; then","pos":"pronoun","audio":"na4.mp3"},{"ch":"来","py":"lái","plain":"lai","en":"come; arrive; ever since; next","pos":"directional locality","audio":"lai2.mp3"},{"ch":"都","py":"dōu","plain":"dou","en":"all; both","pos":"adverb","audio":"dou1.mp3"},{"ch":"个","py":"ge","plain":"ge","en":"general measure word","pos":"classifier","audio":"ge.mp3"},{"ch":"能","py":"néng","plain":"neng","en":"can; be able","pos":"verb","audio":"neng2.mp3"},{"ch":"去","py":"qù","plain":"qu","en":"go; to leave","pos":"verb","audio":"qu4.mp3"},{"ch":"和","py":"hé","plain":"he","en":"and; with","pos":"conjunction","audio":"he2.mp3"},{"ch":"做","py":"zuò","plain":"zuo","en":"do; make","pos":"verb","audio":"zuo4.mp3"},{"ch":"上","py":"shàng","plain":"shang","en":"above; up","pos":"directional locality","audio":"shang4.mp3"},{"ch":"没有","py":"méiyǒu","plain":"mei you","en":"not have; there is not","pos":"verb","audio":"mei2you3.mp3"},{"ch":"看","py":"kàn","plain":"kan","en":"see; look at; to watch","pos":"verb","audio":"kan4.mp3"},{"ch":"怎么","py":"zěnme","plain":"zen me","en":"how?;&nbsp;what","pos":"pronoun","audio":"zen3me.mp3"},{"ch":"现在","py":"xiànzài","plain":"xian zai","en":"now","pos":"time word","audio":"xian4zai4.mp3"},{"ch":"点","py":"diǎn","plain":"dian","en":"a dot; a little; o'clock","pos":"time word","audio":"dian3.mp3"},{"ch":"呢","py":"ne","plain":"ne","en":"indicates a question; how about...?; indicating continued state or action","pos":"modal particle","audio":"ne.mp3"},{"ch":"太","py":"tài","plain":"tai","en":"too (much)","pos":"adverb","audio":"tai4.mp3"},{"ch":"里","py":"lǐ","plain":"li","en":"inside; Chinese mile (~.5 km)","pos":"directional locality","audio":"li3.mp3"},{"ch":"听","py":"tīng","plain":"ting","en":"listen; hear","pos":"verb","audio":"ting1.mp3"},{"ch":"谁","py":"shéi","plain":"shei","en":"who","pos":"pronoun","audio":"shei2.mp3"},{"ch":"多","py":"duō","plain":"duo","en":"many","pos":"adjective","audio":"duo1.mp3"},{"ch":"时候","py":"shíhou","plain":"shi hou","en":"time","pos":"noun","audio":"shi2hou.mp3"},{"ch":"下","py":"xià","plain":"xia","en":"fall; below","pos":"directional locality","audio":"xia4.mp3"},{"ch":"谢谢","py":"xièxie","plain":"xie xie","en":"thank you","pos":"verb","audio":"xie4xie.mp3"},{"ch":"先生","py":"xiānsheng","plain":"xian sheng","en":"Mr.; Sir","pos":"noun","audio":"xian1sheng.mp3"},{"ch":"喜欢","py":"xǐhuan","plain":"xi huan","en":"to like","pos":"verb","audio":"xi3huan.mp3"},{"ch":"大","py":"dà","plain":"da","en":"big; large","pos":"adjective","audio":"da4.mp3"},{"ch":"东西","py":"dōngxi","plain":"dong xi","en":"things; stuff","pos":"noun","audio":"dong1xi.mp3"},{"ch":"小","py":"xiǎo","plain":"xiao","en":"small; young","pos":"adjective","audio":"xiao3.mp3"},{"ch":"叫","py":"jiào","plain":"jiao","en":"to be called","pos":"verb","audio":"jiao4.mp3"},{"ch":"爱","py":"ài","plain":"ai","en":"love","pos":"verb","audio":"ai4.mp3"},{"ch":"年","py":"nián","plain":"nian","en":"year","pos":"classifier","audio":"nian2.mp3"},{"ch":"请","py":"qǐng","plain":"qing","en":"please; invite; to treat someone to something","pos":"verb","audio":"qing3.mp3"},{"ch":"回","py":"huí","plain":"hui","en":"to return; to reply; to go back","pos":"verb","audio":"hui2.mp3"},{"ch":"工作","py":"gōngzuò","plain":"gong zuo","en":"work; a job","pos":"verb with nominal function","audio":"gong1zuo4.mp3"},{"ch":"钱","py":"qián","plain":"qian","en":"money; coin","pos":"noun","audio":"qian2.mp3"},{"ch":"吃","py":"chī","plain":"chi","en":"eat","pos":"verb","audio":"chi1.mp3"},{"ch":"开","py":"kāi","plain":"kai","en":"to open; to start; to operate (a vehicle)","pos":"verb","audio":"kai1.mp3"},{"ch":"家","py":"jiā","plain":"jia","en":"family; home","pos":"noun","audio":"jia1.mp3"},{"ch":"哪","py":"nǎ","plain":"na","en":"which; how","pos":"pronoun","audio":"na3.mp3"},{"ch":"朋友","py":"péngyou","plain":"peng you","en":"friend","pos":"noun","audio":"peng2you.mp3"},{"ch":"妈妈","py":"māma","plain":"ma ma","en":"mom; mum","pos":"noun","audio":"ma1ma.mp3"},{"ch":"今天","py":"jīntiān","plain":"jin tian","en":"today","pos":"time word","audio":"jin1tian1.mp3"},{"ch":"几","py":"jǐ","plain":"ji","en":"how many; several; a few","pos":"numeral","audio":"ji3.mp3"},{"ch":"爸爸","py":"bàba","plain":"ba ba","en":"Dad","pos":"noun","audio":"ba4ba.mp3"},{"ch":"些","py":"xiē","plain":"xie","en":"some; few; several; (plural measure word)","pos":"classifier","audio":"xie1.mp3"},{"ch":"怎么样","py":"zěnmeyàng","plain":"zen me yang","en":"how about?; how is/was it?","pos":"pronoun","audio":"zen3meyang4.mp3"},{"ch":"对不起","py":"duìbuqǐ","plain":"dui bu qi","en":"I'm sorry; excuse me","pos":"interjection","audio":"dui4buqi3.mp3"},{"ch":"住","py":"zhù","plain":"zhu","en":"to live; reside; to stop","pos":"verb","audio":"zhu4.mp3"},{"ch":"三","py":"sān","plain":"san","en":"three","pos":"numeral","audio":"san1.mp3"},{"ch":"高兴","py":"gāoxìng","plain":"gao xing","en":"happy; glad","pos":"adjective","audio":"gao1xing4.mp3"},{"ch":"买","py":"mǎi","plain":"mai","en":"to buy","pos":"verb","audio":"mai3.mp3"},{"ch":"医生","py":"yīshēng","plain":"yi sheng","en":"doctor","pos":"noun","audio":"yi1sheng1.mp3"},{"ch":"哪儿","py":"nǎr","plain":"na r","en":"where? (Beijing accent)","pos":"pronoun","audio":"na3r.mp3"},{"ch":"字","py":"zì","plain":"zi","en":"letter; character","pos":"noun","audio":"zi4.mp3"},{"ch":"名字","py":"míngzi","plain":"ming zi","en":"name","pos":"noun","audio":"ming2zi.mp3"},{"ch":"认识","py":"rènshi","plain":"ren shi","en":"recognize; know (a person)","pos":"verb","audio":"ren4shi.mp3"},{"ch":"坐","py":"zuò","plain":"zuo","en":"sit","pos":"verb","audio":"zuo4.mp3"},{"ch":"喝","py":"hē","plain":"he","en":"to drink","pos":"verb morpheme","audio":"he1.mp3"},{"ch":"写","py":"xiě","plain":"xie","en":"to write; to compose","pos":"verb","audio":"xie3.mp3"},{"ch":"月","py":"yuè","plain":"yue","en":"moon; month; flesh (radical)","pos":"noun","audio":"yue4.mp3"},{"ch":"号","py":"hào","plain":"hao","en":"number; day of a month","pos":"classifier","audio":"hao4.mp3"},{"ch":"狗","py":"gǒu","plain":"gou","en":"dog","pos":"noun","audio":"gou3.mp3"},{"ch":"岁","py":"suì","plain":"sui","en":"years old; age","pos":"classifier","audio":"sui4.mp3"},{"ch":"看见","py":"kànjiàn","plain":"kan jian","en":"see; catch sight of","pos":"verb","audio":"kan4jian4.mp3"},{"ch":"打电话","py":"dǎ diànhuà","plain":"da dian hua","en":"make a phone call","pos":"verb","audio":"da3dian4hua4.mp3"},{"ch":"喂","py":"wèi","plain":"wei","en":"hello (on the phone), hey","pos":"interjection","audio":"wei4.mp3"},{"ch":"儿子","py":"érzi","plain":"er zi","en":"son","pos":"noun","audio":"er2zi.mp3"},{"ch":"漂亮","py":"piàoliang","plain":"piao liang","en":"pretty; beautiful","pos":"adjective","audio":"piao4liang.mp3"},{"ch":"分钟","py":"fēnzhōng","plain":"fen zhong","en":"minute; (measure word for time)","pos":"classifier","audio":"fen1zhong1.mp3"},{"ch":"再见","py":"zàijiàn","plain":"zai jian","en":"goodbye; see you later","pos":"verb","audio":"zai4jian4.mp3"},{"ch":"本","py":"běn","plain":"ben","en":"measure word for books","pos":"classifier","audio":"ben3.mp3"},{"ch":"明天","py":"míngtiān","plain":"ming tian","en":"tomorrow","pos":"time word","audio":"ming2tian1.mp3"},{"ch":"少","py":"shǎo","plain":"shao","en":"few; little","pos":"adjective","audio":"shao3.mp3"},{"ch":"多少","py":"duōshao","plain":"duo shao","en":"how much?; how many?","pos":"pronoun","audio":"duo1shao.mp3"},{"ch":"块","py":"kuài","plain":"kuai","en":"lump; piece; sum of money","pos":"classifier","audio":"kuai4.mp3"},{"ch":"女儿","py":"nǚ'ér","plain":"nv er","en":"daughter","pos":"noun","audio":"nv3'er2.mp3"},{"ch":"小姐","py":"xiǎojie","plain":"xiao jie","en":"young lady; miss; Ms.","pos":"noun","audio":"xiao3jie.mp3"},{"ch":"衣服","py":"yīfu","plain":"yi fu","en":"clothes","pos":"noun","audio":"yi1fu.mp3"},{"ch":"水","py":"shuǐ","plain":"shui","en":"water","pos":"noun","audio":"shui3.mp3"},{"ch":"学校","py":"xuéxiào","plain":"xue xiao","en":"school","pos":"noun","audio":"xue2xiao4.mp3"},{"ch":"电影","py":"diànyǐng","plain":"dian ying","en":"movie; film","pos":"noun","audio":"dian4ying3.mp3"},{"ch":"书","py":"shū","plain":"shu","en":"book; letter","pos":"noun","audio":"shu1.mp3"},{"ch":"四","py":"sì","plain":"si","en":"four","pos":"numeral","audio":"si4.mp3"},{"ch":"五","py":"wǔ","plain":"wu","en":"five","pos":"numeral","audio":"wu3.mp3"},{"ch":"医院","py":"yīyuàn","plain":"yi yuan","en":"hospital","pos":"noun","audio":"yi1yuan4.mp3"},{"ch":"没关系","py":"méi guānxi","plain":"mei guan xi","en":"it doesn't matter; never mind","pos":"fixed expression","audio":"mei2guan1xi.mp3"},{"ch":"飞机","py":"fēijī","plain":"fei ji","en":"airplane","pos":"noun","audio":"fei1ji1.mp3"},{"ch":"二","py":"èr","plain":"er","en":"two","pos":"numeral","audio":"er4.mp3"},{"ch":"电视","py":"diànshì","plain":"dian shi","en":"television; TV","pos":"noun","audio":"dian4shi4.mp3"},{"ch":"读","py":"dú","plain":"du","en":"to read; to study","pos":"verb","audio":"du2.mp3"},{"ch":"后面","py":"hòumian","plain":"hou mian","en":"back; behind","pos":"directional locality","audio":"hou4mian.mp3"},{"ch":"昨天","py":"zuótiān","plain":"zuo tian","en":"yesterday","pos":"time word","audio":"zuo2tian1.mp3"},{"ch":"睡觉","py":"shuì jiào","plain":"shui jiao","en":"to sleep; go to bed","pos":"verb","audio":"shui4jiao4.mp3"},{"ch":"六","py":"liù","plain":"liu","en":"six","pos":"numeral","audio":"liu4.mp3"},{"ch":"老师","py":"lǎoshī","plain":"lao shi","en":"teacher","pos":"noun","audio":"lao3shi1.mp3"},{"ch":"星期","py":"xīngqī","plain":"xing qi","en":"week","pos":"noun","audio":"xing1qi1.mp3"},{"ch":"十","py":"shí","plain":"shi","en":"ten","pos":"numeral","audio":"shi2.mp3"},{"ch":"猫","py":"māo","plain":"mao","en":"cat","pos":"noun","audio":"mao1.mp3"},{"ch":"电脑","py":"diànnǎo","plain":"dian nao","en":"computer","pos":"noun","audio":"dian4nao3.mp3"},{"ch":"热","py":"rè","plain":"re","en":"heat; hot","pos":"adjective","audio":"re4.mp3"},{"ch":"学生","py":"xuésheng","plain":"xue sheng","en":"student","pos":"noun","audio":"xue2sheng.mp3"},{"ch":"下午","py":"xiàwǔ","plain":"xia wu","en":"afternoon","pos":"time word","audio":"xia4wu3.mp3"},{"ch":"学习","py":"xuéxí","plain":"xue xi","en":"learn; to study","pos":"verb","audio":"xue2xi2.mp3"},{"ch":"冷","py":"lěng","plain":"leng","en":"cold","pos":"adjective","audio":"leng3.mp3"},{"ch":"不客气","py":"bụ̀ kèqi","plain":"bu ke qi","en":"you're welcome; don't be polite","pos":"stative verb","audio":"bu2ke4qi.mp3"},{"ch":"前面","py":"qiánmiàn","plain":"qian mian","en":"in front","pos":"directional locality","audio":"qian2mian4.mp3"},{"ch":"八","py":"bā","plain":"ba","en":"eight","pos":"numeral","audio":"ba1.mp3"},{"ch":"中国","py":"Zhōngguó","plain":"zhong guo","en":"China","pos":"place name","audio":"zhong1guo2.mp3"},{"ch":"七","py":"qī","plain":"qi","en":"seven","pos":"numeral","audio":"qi1.mp3"},{"ch":"菜","py":"cài","plain":"cai","en":"dish (type of food); vegetables","pos":"noun","audio":"cai4.mp3"},{"ch":"桌子","py":"zhuōzi","plain":"zhuo zi","en":"table; desk","pos":"noun","audio":"zhuo1zi.mp3"},{"ch":"出租车","py":"chūzūchē","plain":"chu zu che","en":"taxi; cab","pos":"noun","audio":"chu1zu1che1.mp3"},{"ch":"天气","py":"tiānqì","plain":"tian qi","en":"weather","pos":"noun","audio":"tian1qi4.mp3"},{"ch":"茶","py":"chá","plain":"cha","en":"tea","pos":"noun","audio":"cha2.mp3"},{"ch":"九","py":"jiǔ","plain":"jiu","en":"nine","pos":"numeral","audio":"jiu3.mp3"},{"ch":"商店","py":"shāngdiàn","plain":"shang dian","en":"shop; store","pos":"noun","audio":"shang1dian4.mp3"},{"ch":"椅子","py":"yǐzi","plain":"yi zi","en":"chair","pos":"noun","audio":"yi3zi.mp3"},{"ch":"同学","py":"tóngxué","plain":"tong xue","en":"fellow student; schoolmate","pos":"noun","audio":"tong2xue2.mp3"},{"ch":"一点儿","py":"yìdiǎnr","plain":"yi dian r","en":"a bit; a few","pos":"numeral","audio":"yi4dian3r.mp3"},{"ch":"苹果","py":"píngguǒ","plain":"ping guo","en":"apple","pos":"noun","audio":"ping2guo3.mp3"},{"ch":"饭店","py":"fàndiàn","plain":"fan dian","en":"restaurant; hotel","pos":"noun","audio":"fan4dian4.mp3"},{"ch":"中午","py":"zhōngwǔ","plain":"zhong wu","en":"noon; midday","pos":"time word","audio":"zhong1wu3.mp3"},{"ch":"上午","py":"shàngwǔ","plain":"shang wu","en":"late morning (before noon)","pos":"time word","audio":"shang4wu3.mp3"},{"ch":"水果","py":"shuǐguǒ","plain":"shui guo","en":"fruit","pos":"noun","audio":"shui3guo3.mp3"},{"ch":"杯子","py":"bēizi","plain":"bei zi","en":"cup; glass","pos":"noun","audio":"bei1zi.mp3"},{"ch":"下雨","py":"xiàyǔ","plain":"xia yu","en":"to rain","pos":"verb","audio":"xia4yu3.mp3"},{"ch":"米饭","py":"mǐfàn","plain":"mi fan","en":"(cooked) rice","pos":"noun","audio":"mi3fan4.mp3"},{"ch":"北京","py":"Běijīng","plain":"bei jing","en":"Beijing","pos":"place name","audio":"bei3jing1.mp3"},{"ch":"汉语","py":"Hànyǔ","plain":"han yu","en":"Chinese language","pos":"other proper noun","audio":"han4yu3.mp3"}];
+const B2=[{"ch":"就","py":"jiù","plain":"jiu","en":"then; at once; just; only; with regard to","pos":"adverb","audio":"jiu4.mp3"},{"ch":"要","py":"yào","plain":"yao","en":"to want; to need; will/shall; important","pos":"verb","audio":"yao4.mp3"},{"ch":"知道","py":"zhīdao","plain":"zhi dao","en":"know; be aware of","pos":"verb","audio":"zhi1dao.mp3"},{"ch":"吧","py":"ba","plain":"ba","en":"particle indicating polite suggestion","pos":"modal particle","audio":"ba.mp3"},{"ch":"到","py":"dào","plain":"dao","en":"arrive (at a place); until (a time)","pos":"verb","audio":"dao4.mp3"},{"ch":"对","py":"duì","plain":"dui","en":"correct; a pair; to face; be opposite; to; towards","pos":"preposition","audio":"dui4.mp3"},{"ch":"也","py":"yě","plain":"ye","en":"also; too","pos":"adverb","audio":"ye3.mp3"},{"ch":"还","py":"hái","plain":"hai","en":"still; yet; in addition; even","pos":"adverb","audio":"hai2.mp3"},{"ch":"让","py":"ràng","plain":"rang","en":"let, allow","pos":"verb","audio":"rang4.mp3"},{"ch":"给","py":"gěi","plain":"gei","en":"to give; to grant; (passive particle)","pos":"preposition","audio":"gei3.mp3"},{"ch":"过","py":"guo","plain":"guo","en":"indicates a past experience","pos":"auxiliary","audio":"guo.mp3"},{"ch":"得","py":"de","plain":"de","en":"used to link a verb and the manner clause that follows it","pos":"auxiliary","audio":"de.mp3"},{"ch":"真","py":"zhēn","plain":"zhen","en":"real; true; genuine","pos":"adverb","audio":"zhen1.mp3"},{"ch":"着","py":"zhe","plain":"zhe","en":"ing (indicating action in progress)","pos":"auxiliary","audio":"zhe.mp3"},{"ch":"可以","py":"kěyǐ","plain":"ke yi","en":"can; may; possible; okay","pos":"verb","audio":"ke3yi3.mp3"},{"ch":"别","py":"bié","plain":"bie","en":"don't do something; don't","pos":"adverb","audio":"bie2.mp3"},{"ch":"走","py":"zǒu","plain":"zou","en":"to walk; to go; to move (Kangxi radical 156)","pos":"verb","audio":"zou3.mp3"},{"ch":"告诉","py":"gàosu","plain":"gao su","en":"to tell; inform","pos":"verb","audio":"gao4su.mp3"},{"ch":"因为","py":"yīnwèi","plain":"yin wei","en":"because","pos":"preposition","audio":"yin1wei4.mp3"},{"ch":"再","py":"zài","plain":"zai","en":"again; once more","pos":"adverb","audio":"zai4.mp3"},{"ch":"快","py":"kuài","plain":"kuai","en":"fast; quick; swift","pos":"adjective","audio":"kuai4.mp3"},{"ch":"但是","py":"dànshì","plain":"dan shi","en":"but; however","pos":"conjunction","audio":"dan4shi4.mp3"},{"ch":"已经","py":"yǐjing","plain":"yi jing","en":"already","pos":"adverb","audio":"yi3jing.mp3"},{"ch":"为什么","py":"wèishénme","plain":"wei shen me","en":"why?; for what reason?","pos":"pronoun","audio":"wei4shen2me.mp3"},{"ch":"觉得","py":"juéde","plain":"jue de","en":"feel; think","pos":"verb","audio":"jue2de.mp3"},{"ch":"它","py":"tā","plain":"ta","en":"it","pos":"pronoun","audio":"ta1.mp3"},{"ch":"从","py":"cóng","plain":"cong","en":"from; obey; observe","pos":"preposition","audio":"cong2.mp3"},{"ch":"找","py":"zhǎo","plain":"zhao","en":"try to find; look for; seek; to give change","pos":"verb","audio":"zhao3.mp3"},{"ch":"最","py":"zuì","plain":"zui","en":"the most; -est; (indicator for superlative)","pos":"adverb","audio":"zui4.mp3"},{"ch":"可能","py":"kěnéng","plain":"ke neng","en":"possible; probable; maybe","pos":"verb","audio":"ke3neng2.mp3"},{"ch":"次","py":"cì","plain":"ci","en":"(mw for number of times of occurrence); nth; order","pos":"classifier","audio":"ci4.mp3"},{"ch":"出","py":"chū","plain":"chu","en":"go out; occur","pos":"verb","audio":"chu1.mp3"},{"ch":"孩子","py":"háizi","plain":"hai zi","en":"child; children; son or daughter","pos":"noun","audio":"hai2zi.mp3"},{"ch":"所以","py":"suǒyǐ","plain":"suo yi","en":"so; therefore; as a result","pos":"conjunction","audio":"suo3yi3.mp3"},{"ch":"两","py":"liǎng","plain":"liang","en":"two; 2; both; (unit of weight equal to 50 grams)","pos":"numeral","audio":"liang3.mp3"},{"ch":"错","py":"cuò","plain":"cuo","en":"mistake; error; blunder; miss an opportunity","pos":"verb","audio":"cuo4.mp3"},{"ch":"等","py":"děng","plain":"deng","en":"to wait; rank; equal; etc.","pos":"verb","audio":"deng3.mp3"},{"ch":"题","py":"tí","plain":"ti","en":"topic; subject; question on a test or assignment","pos":"noun","audio":"ti2.mp3"},{"ch":"问","py":"wèn","plain":"wen","en":"ask; inquire","pos":"verb","audio":"wen4.mp3"},{"ch":"问题","py":"wèntí","plain":"wen ti","en":"question; problem","pos":"noun","audio":"wen4ti2.mp3"},{"ch":"一起","py":"yī̠qǐ","plain":"yi qi","en":"together; in the same place","pos":"space word","audio":"yi4qi3.mp3"},{"ch":"开始","py":"kāishǐ","plain":"kai shi","en":"begin; to start; beginning","pos":"verb","audio":"kai1shi3.mp3"},{"ch":"时间","py":"shíjiān","plain":"shi jian","en":"time; period","pos":"noun","audio":"shi2jian1.mp3"},{"ch":"事情","py":"shìqing","plain":"shi qing","en":"matter; affair; thing; business","pos":"noun","audio":"shi4qing.mp3"},{"ch":"一下","py":"yīxià","plain":"yi xia","en":"a little bit/while; one time; once","pos":"numeral","audio":"yi1xia4.mp3"},{"ch":"非常","py":"fēicháng","plain":"fei chang","en":"extremely; extraordinary; very","pos":"adverb","audio":"fei1chang2.mp3"},{"ch":"希望","py":"xīwàng","plain":"xi wang","en":"to hope; wish for; to desire","pos":"verb","audio":"xi1wang4.mp3"},{"ch":"准备","py":"zhǔnbèi","plain":"zhun bei","en":"prepare; get ready","pos":"verb","audio":"zhun3bei4.mp3"},{"ch":"比","py":"bǐ","plain":"bi","en":"compare; (indicates comparison) (Kangxi radical 81); to gesticulate as one talks","pos":"preposition","audio":"bi3.mp3"},{"ch":"件","py":"jiàn","plain":"jian","en":"(mw for things, clothes, and items)","pos":"classifier","audio":"jian4.mp3"},{"ch":"意思","py":"yìsi","plain":"yi si","en":"meaning; idea; opinion","pos":"noun","audio":"yi4si.mp3"},{"ch":"第一","py":"dìyī","plain":"di yi","en":"num. first; primary; foremost","pos":"numeral","audio":"di4yi1.mp3"},{"ch":"进","py":"jìn","plain":"jin","en":"enter; come in","pos":"verb","audio":"jin4.mp3"},{"ch":"大家","py":"dàjiā","plain":"da jia","en":"everyone","pos":"pronoun","audio":"da4jia1.mp3"},{"ch":"新","py":"xīn","plain":"xin","en":"new; Xinjiang autonomous region (abbreviation)","pos":"adjective","audio":"xin1.mp3"},{"ch":"您","py":"nín","plain":"nin","en":"you (polite)","pos":"pronoun","audio":"nin2.mp3"},{"ch":"穿","py":"chuān","plain":"chuan","en":"to wear; put on; penetrate","pos":"verb","audio":"chuan1.mp3"},{"ch":"送","py":"sòng","plain":"song","en":"deliver; to carry; to give; send","pos":"verb","audio":"song4.mp3"},{"ch":"玩","py":"wán","plain":"wan","en":"to play; have a good time; visit; enjoy","pos":"verb","audio":"wan2.mp3"},{"ch":"长","py":"cháng","plain":"chang","en":"long; length (Kangxi radical 168)","pos":"adjective","audio":"chang2.mp3"},{"ch":"小时","py":"xiǎoshí","plain":"xiao shi","en":"hour","pos":"noun","audio":"xiao3shi2.mp3"},{"ch":"完","py":"wán","plain":"wan","en":"to finish; be over; complete","pos":"verb","audio":"wan2.mp3"},{"ch":"每","py":"měi","plain":"mei","en":"each; every","pos":"pronoun","audio":"mei3.mp3"},{"ch":"公司","py":"gōngsī","plain":"gong si","en":"company; corporation","pos":"noun","audio":"gong1si1.mp3"},{"ch":"帮助","py":"bāngzhù","plain":"bang zhu","en":"help; assist; aid","pos":"v./n.","audio":"bang1zhu4.mp3"},{"ch":"晚上","py":"wǎnshang","plain":"wan shang","en":"evening; night","pos":"time word","audio":"wan3shang.mp3"},{"ch":"说话","py":"shuōhuà","plain":"shuo hua","en":"to talk; speak","pos":"verb","audio":"shuo1hua4.mp3"},{"ch":"门","py":"mén","plain":"men","en":"door; opening; gate (Kangxi radical 169)","pos":"noun","audio":"men2.mp3"},{"ch":"女","py":"nǚ","plain":"nv","en":"woman; female (Kangxi radical 38)","pos":"non-predicate adjective","audio":"nv3.mp3"},{"ch":"忙","py":"máng","plain":"mang","en":"busy","pos":"verb","audio":"mang2.mp3"},{"ch":"卖","py":"mài","plain":"mai","en":"to sell","pos":"verb","audio":"mai4.mp3"},{"ch":"高","py":"gāo","plain":"gao","en":"high; tall (Kangxi radical 189)","pos":"adjective","audio":"gao1.mp3"},{"ch":"房间","py":"fángjiān","plain":"fang jian","en":"room","pos":"noun","audio":"fang2jian1.mp3"},{"ch":"路","py":"lù","plain":"lu","en":"road; path; journey; route","pos":"noun","audio":"lu4.mp3"},{"ch":"懂","py":"dǒng","plain":"dong","en":"understand; know","pos":"verb","audio":"dong3.mp3"},{"ch":"正在","py":"zhèngzài","plain":"zheng zai","en":"in the process of (doing something); currently","pos":"auxiliary","audio":"zheng4zai4.mp3"},{"ch":"笑","py":"xiào","plain":"xiao","en":"to laugh; to smile","pos":"verb","audio":"xiao4.mp3"},{"ch":"远","py":"yuǎn","plain":"yuan","en":"far; distant; remote","pos":"adjective","audio":"yuan3.mp3"},{"ch":"妻子","py":"qīzi","plain":"qi zi","en":"wife","pos":"noun","audio":"qi1zi.mp3"},{"ch":"丈夫","py":"zhàngfu","plain":"zhang fu","en":"husband; man","pos":"noun","audio":"zhang4fu.mp3"},{"ch":"离","py":"lí","plain":"li","en":"leave; depart; go away; apart from","pos":"verb","audio":"li2.mp3"},{"ch":"往","py":"wǎng","plain":"wang","en":"to go (in a direction); towards; in the past","pos":"preposition","audio":"wang3.mp3"},{"ch":"男","py":"nán","plain":"nan","en":"male","pos":"non-predicate adjective","audio":"nan2.mp3"},{"ch":"眼睛","py":"yǎnjing","plain":"yan jing","en":"eye","pos":"noun","audio":"yan3jing.mp3"},{"ch":"快乐","py":"kuàilè","plain":"kuai le","en":"happy","pos":"adjective","audio":"kuai4le4.mp3"},{"ch":"虽然","py":"suīrán","plain":"sui ran","en":"although; even though","pos":"conjunction","audio":"sui1ran2.mp3"},{"ch":"早上","py":"zǎoshang","plain":"zao shang","en":"(early) morning","pos":"time word","audio":"zao3shang.mp3"},{"ch":"药","py":"yào","plain":"yao","en":"medicine; drug; cure; chemical","pos":"noun","audio":"yao4.mp3"},{"ch":"身体","py":"shēntǐ","plain":"shen ti","en":"health; (human) body","pos":"noun","audio":"shen1ti3.mp3"},{"ch":"黑","py":"hēi","plain":"hei","en":"black; dark (Kangxi radical 203); Heilongjiang province (abbreviation)","pos":"adjective","audio":"hei1.mp3"},{"ch":"咖啡","py":"kāfēi","plain":"ka fei","en":"coffee","pos":"noun","audio":"ka1fei1.mp3"},{"ch":"日","py":"rì","plain":"ri","en":"sun; day; date; time (Kangxi radical 72)","pos":"abbreviation","audio":"ri4.mp3"},{"ch":"休息","py":"xiūxi","plain":"xiu xi","en":"to rest; take a break","pos":"verb","audio":"xiu1xi.mp3"},{"ch":"外","py":"wài","plain":"wai","en":"outer; outside; in addition; foreign","pos":"directional locality","audio":"wai4.mp3"},{"ch":"生日","py":"shēngrì","plain":"sheng ri","en":"birthday","pos":"noun","audio":"sheng1ri4.mp3"},{"ch":"哥哥","py":"gēge","plain":"ge ge","en":"older brother","pos":"noun","audio":"ge1ge.mp3"},{"ch":"票","py":"piào","plain":"piao","en":"ticket; bank note; a vote","pos":"noun","audio":"piao4.mp3"},{"ch":"手机","py":"shǒujī","plain":"shou ji","en":"mobile (cell) phone","pos":"noun","audio":"shou3ji1.mp3"},{"ch":"洗","py":"xǐ","plain":"xi","en":"to wash; bathe","pos":"verb","audio":"xi3.mp3"},{"ch":"跳舞","py":"tiào wǔ","plain":"tiao wu","en":"to dance","pos":"verb","audio":"tiao4wu3.mp3"},{"ch":"弟弟","py":"dìdi","plain":"di di","en":"younger brother","pos":"noun","audio":"di4di.mp3"},{"ch":"妹妹","py":"mèimei","plain":"mei mei","en":"younger sister","pos":"noun","audio":"mei4mei.mp3"},{"ch":"红","py":"hóng","plain":"hong","en":"red; symbol of success; bonus; popular","pos":"adjective","audio":"hong2.mp3"},{"ch":"慢","py":"màn","plain":"man","en":"slow","pos":"adjective","audio":"man4.mp3"},{"ch":"近","py":"jìn","plain":"jin","en":"near; close (to)","pos":"adjective","audio":"jin4.mp3"},{"ch":"白","py":"bái","plain":"bai","en":"white; snowy; pure; bright; empty (Kangxi radical 106)","pos":"adjective","audio":"bai2.mp3"},{"ch":"姐姐","py":"jiějie","plain":"jie jie","en":"older sister","pos":"noun","audio":"jie3jie.mp3"},{"ch":"介绍","py":"jièshào","plain":"jie shao","en":"to introduce; recommend; introduction","pos":"verb","audio":"jie4shao4.mp3"},{"ch":"鱼","py":"yú","plain":"yu","en":"fish (Kangxi radical 195)","pos":"noun","audio":"yu2.mp3"},{"ch":"累","py":"lèi","plain":"lei","en":"tired","pos":"adjective","audio":"lei4.mp3"},{"ch":"课","py":"kè","plain":"ke","en":"class; subject; lesson; course","pos":"noun","audio":"ke4.mp3"},{"ch":"上班","py":"shàng bān","plain":"shang ban","en":"go to work; be on duty","pos":"verb","audio":"shang4ban1.mp3"},{"ch":"旁边","py":"pángbiān","plain":"pang bian","en":"side, beside","pos":"directional locality","audio":"pang2bian1.mp3"},{"ch":"运动","py":"yùndòng","plain":"yun dong","en":"(physical) exercise; movement; sports; campaign","pos":"verb with nominal function","audio":"yun4dong4.mp3"},{"ch":"去年","py":"qùnián","plain":"qu nian","en":"last year","pos":"time word","audio":"qu4nian2.mp3"},{"ch":"报纸","py":"bàozhǐ","plain":"bao zhi","en":"newspaper","pos":"noun","audio":"bao4zhi3.mp3"},{"ch":"颜色","py":"yánsè","plain":"yan se","en":"color","pos":"noun","audio":"yan2se4.mp3"},{"ch":"机场","py":"jīchǎng","plain":"ji chang","en":"airport; airfield","pos":"noun","audio":"ji1chang3.mp3"},{"ch":"唱歌","py":"chànggē","plain":"chang ge","en":"sing (a song)","pos":"verb","audio":"chang4ge1.mp3"},{"ch":"千","py":"qiān","plain":"qian","en":"one thousand","pos":"numeral","audio":"qian1.mp3"},{"ch":"好吃","py":"hǎochī","plain":"hao chi","en":"tasty","pos":"adjective","audio":"hao3chi1.mp3"},{"ch":"考试","py":"kǎoshì","plain":"kao shi","en":"test; exam; to give or take a test","pos":"verb with nominal function","audio":"kao3shi4.mp3"},{"ch":"左边","py":"zuǒbian","plain":"zuo bian","en":"the left side; the left","pos":"directional locality","audio":"zuo3bian.mp3"},{"ch":"姓","py":"xìng","plain":"xing","en":"surname; family name","pos":"noun","audio":"xing4.mp3"},{"ch":"百","py":"bǎi","plain":"bai","en":"hundred","pos":"numeral","audio":"bai3.mp3"},{"ch":"雪","py":"xuě","plain":"xue","en":"snow","pos":"noun","audio":"xue3.mp3"},{"ch":"贵","py":"guì","plain":"gui","en":"expensive; noble; honorable; Guizhou province (abbreviation)","pos":"adjective","audio":"gui4.mp3"},{"ch":"生病","py":"shēng bìng","plain":"sheng bing","en":"get sick; fall ill","pos":"verb","audio":"sheng1bing4.mp3"},{"ch":"游泳","py":"yóuyǒng","plain":"you yong","en":"to swim","pos":"verb with nominal function","audio":"you2yong3.mp3"},{"ch":"牛奶","py":"niúnǎi","plain":"niu nai","en":"cow's milk","pos":"noun","audio":"niu2nai3.mp3"},{"ch":"右边","py":"yòubian","plain":"you bian","en":"the right (as opposed to left) side","pos":"directional locality","audio":"you4bian.mp3"},{"ch":"便宜","py":"piányi","plain":"pian yi","en":"cheap","pos":"adjective","audio":"pian2yi.mp3"},{"ch":"公共汽车","py":"gōnggòng qìchē","plain":"gong gong qi che","en":"(public) bus","pos":"noun","audio":"gong1gong4qi4che1.mp3"},{"ch":"起床","py":"qǐ chuáng","plain":"qi chuang","en":"get out of bed","pos":"verb","audio":"qi3chuang2.mp3"},{"ch":"打篮球","py":"dǎ lánqiú","plain":"da lan qiu","en":"play basketball","pos":"verb","audio":"16120dyc.mp3"},{"ch":"鸡蛋","py":"jīdàn","plain":"ji dan","en":"(chicken) egg","pos":"noun","audio":"ji1dan4.mp3"},{"ch":"踢足球","py":"tīzúqiú","plain":"ti zu qiu","en":"to play football/soccer","pos":"verb","audio":"16119hsy.mp3"},{"ch":"零","py":"líng","plain":"ling","en":"zero; remnant","pos":"numeral","audio":"ling2.mp3"},{"ch":"手表","py":"shǒubiǎo","plain":"shou biao","en":"wristwatch","pos":"noun","audio":"shou3biao3.mp3"},{"ch":"旅游","py":"lǚyóu","plain":"lv you","en":"tour; tourism","pos":"v./n.","audio":"lv3you2.mp3"},{"ch":"服务员","py":"fúwùyuán","plain":"fu wu yuan","en":"waiter/waitress; server; attendant","pos":"noun","audio":"fu2wu4yuan2.mp3"},{"ch":"宾馆","py":"bīnguǎn","plain":"bin guan","en":"guesthouse; hotel","pos":"noun","audio":"bin1guan3.mp3"},{"ch":"教室","py":"jiàoshì","plain":"jiao shi","en":"classroom","pos":"noun","audio":"jiao4shi4.mp3"},{"ch":"跑步","py":"pǎo bù","plain":"pao bu","en":"to run; to jog","pos":"verb as adverbial","audio":"pao3bu4.mp3"},{"ch":"阴","py":"yīn","plain":"yin","en":"cloudy (weather); yin (the negative principle of Yin and Yang); secret; the moon; negative; shade","pos":"adjective","audio":"yin1.mp3"},{"ch":"面条","py":"miàntiáo","plain":"mian tiao","en":"noodles","pos":"noun","audio":"12016zht.mp3"},{"ch":"铅笔","py":"qiānbǐ","plain":"qian bi","en":"pencil","pos":"noun","audio":"qian1bi3.mp3"},{"ch":"火车站","py":"huǒchēzhàn","plain":"huo che zhan","en":"train station","pos":"noun","audio":"huo3che1zhan4.mp3"},{"ch":"西瓜","py":"xīguā","plain":"xi gua","en":"watermelon","pos":"noun","audio":"xi1gua1.mp3"},{"ch":"羊肉","py":"yángròu","plain":"yang rou","en":"mutton; lamb","pos":"noun","audio":"yang2rou4.mp3"},{"ch":"晴","py":"qíng","plain":"qing","en":"clear; fine (as of weather)","pos":"verb","audio":"qing2.mp3"}];
+const B3=[{"ch":"啊","py":"ā","plain":"a","en":"ah; (particle showing elation, doubt, puzzled surprise, or approval)","short_en":"ah; (particle showing elation, doubt, puzzled surprise, or approval)","pos":"interjection","audio":"a.mp3"},{"ch":"还","py":"huán","plain":"huan","en":"to return","short_en":"to return","pos":"verb","audio":"huan2.mp3"},{"ch":"把","py":"bǎ","plain":"ba","en":"grasp, to hold, handle, m.(for things with handles)","short_en":"grasp, to hold, handle, m.(for things with handles)","pos":"preposition","audio":"ba3.mp3"},{"ch":"过","py":"guò","plain":"guo","en":"to pass, to go by, to exceed","short_en":"to pass, to go by, to exceed","pos":"verb","audio":"guo4.mp3"},{"ch":"如果","py":"rúguǒ","plain":"ru guo","en":"if; in the event that","short_en":"if; in the event that","pos":"conjunction","audio":"ru2guo3.mp3"},{"ch":"只","py":"zhǐ","plain":"zhi","en":"only; merely","short_en":"only; merely","pos":"adverb","audio":"zhi3.mp3"},{"ch":"被","py":"bèi","plain":"bei","en":"by (indicates passive voice sentences); a quilt/blanket","short_en":"by (indicates passive voice sentences); a quilt/blanket","pos":"preposition","audio":"bei4.mp3"},{"ch":"跟","py":"gēn","plain":"gen","en":"heel; follow; with; and","short_en":"heel; follow; with; and","pos":"preposition","audio":"gen1.mp3"},{"ch":"自己","py":"zìjǐ","plain":"zi ji","en":"oneself; self","short_en":"oneself; self","pos":"pronoun","audio":"zi4ji3.mp3"},{"ch":"用","py":"yòng","plain":"yong","en":"to use (Kangxi radical 101)","short_en":"to use (Kangxi radical 101)","pos":"preposition","audio":"yong4.mp3"},{"ch":"像","py":"xiàng","plain":"xiang","en":"be like; resemble; appearance; appear","short_en":"be like; resemble; appearance; appear","pos":"verb","audio":"xiang4.mp3"},{"ch":"为","py":"wèi","plain":"wei","en":"for; because of; to; for the sake of","short_en":"for; because of; to; for the sake of","pos":"preposition","audio":"wei4.mp3"},{"ch":"需要","py":"xūyào","plain":"xu yao","en":"to need; to want; to demand","short_en":"to need; to want; to demand","pos":"verb","audio":"xu1yao4.mp3"},{"ch":"应该","py":"yīnggāi","plain":"ying gai","en":"should; ought to; must","short_en":"should; ought to; must","pos":"verb","audio":"ying1gai1.mp3"},{"ch":"起来","py":"qǐlái","plain":"qi lai","en":"to get up, to rise, to arise, to start","short_en":"to get up, to rise, to arise, to start","pos":"verb","audio":"qi3lai2.mp3"},{"ch":"才","py":"cái","plain":"cai","en":"ability; talent; just now; not until","short_en":"ability; talent; just now; not until","pos":"adverb","audio":"cai2.mp3"},{"ch":"又","py":"yòu","plain":"you","en":"again; both...and...","short_en":"again; both...and...","pos":"adverb","audio":"you4.mp3"},{"ch":"拿","py":"ná","plain":"na","en":"hold; take; seize; capture","short_en":"hold; take; seize; capture","pos":"verb","audio":"na2.mp3"},{"ch":"更","py":"gèng","plain":"geng","en":"more; even more","short_en":"more; even more","pos":"adverb","audio":"geng4.mp3"},{"ch":"带","py":"dài","plain":"dai","en":"belt; zone; carry, bring, take","short_en":"belt; zone; carry, bring, take","pos":"verb","audio":"dai4.mp3"},{"ch":"然后","py":"ránhòu","plain":"ran hou","en":"then; afterwards","short_en":"then; afterwards","pos":"conjunction","audio":"ran2hou4.mp3"},{"ch":"一样","py":"yị̄yàng","plain":"yi yang","en":"the same; alike; equal to","short_en":"the same; alike; equal to","pos":"auxiliary","audio":"yi2yang4.mp3"},{"ch":"当然","py":"dāngrán","plain":"dang ran","en":"of course; naturally","short_en":"of course; naturally","pos":"adverb","audio":"dang1ran2.mp3"},{"ch":"相信","py":"xiāngxìn","plain":"xiang xin","en":"believe (sb.); be convinced of","short_en":"believe (sb.); be convinced of","pos":"verb","audio":"xiang1xin4.mp3"},{"ch":"认为","py":"rènwéi","plain":"ren wei","en":"believe; think that","short_en":"believe; think that","pos":"verb","audio":"ren4wei2.mp3"},{"ch":"明白","py":"míngbai","plain":"ming bai","en":"clear; obvious; understand; explicit","short_en":"clear; obvious; understand; explicit","pos":"verb","audio":"ming2bai.mp3"},{"ch":"一直","py":"yī̠zhí","plain":"yi zhi","en":"always; all along; straight (in a straight line)","short_en":"always; all along; straight (in a straight line)","pos":"adverb","audio":"yi4zhi2.mp3"},{"ch":"地","py":"dì","plain":"di","en":"earth; ground","short_en":"earth; ground","pos":"auxiliary","audio":"di4.mp3"},{"ch":"地方","py":"dìfang","plain":"di fang","en":"place; space; room; part, (fāng: local; regional)","short_en":"place; space; room; part, (fāng: local; regional)","pos":"noun","audio":"di4fang.mp3"},{"ch":"离开","py":"líkāi","plain":"li kai","en":"leave; depart","short_en":"leave; depart","pos":"verb","audio":"li2kai1.mp3"},{"ch":"一定","py":"yị̄dìng","plain":"yi ding","en":"surely; certainly; necessarily; definite","short_en":"surely; certainly; necessarily; definite","pos":"non-predicate adjective","audio":"yi2ding4.mp3"},{"ch":"还是","py":"háishi","plain":"hai shi","en":"or; still; nevertheless; had better","short_en":"or; still; nevertheless; had better","pos":"conjunction","audio":"hai2shi.mp3"},{"ch":"发","py":"fā","plain":"fa","en":"send out; to issue, utter; express;&nbsp;emit","short_en":"send out; to issue, utter; express;&nbsp;emit","pos":"verb","audio":"fa1.mp3"},{"ch":"发现","py":"fāxiàn","plain":"fa xian","en":"discover; to find","short_en":"discover; to find","pos":"verb","audio":"fa1xian4.mp3"},{"ch":"而且","py":"érqiě","plain":"er qie","en":"moreover; in addition; as well as","short_en":"moreover; in addition; as well as","pos":"conjunction","audio":"er2qie3.mp3"},{"ch":"必须","py":"bìxū","plain":"bi xu","en":"must; have to","short_en":"must; have to","pos":"adverb","audio":"bi4xu1.mp3"},{"ch":"放","py":"fàng","plain":"fang","en":"put; to place; to release; to free","short_en":"put; to place; to release; to free","pos":"verb","audio":"fang4.mp3"},{"ch":"为了","py":"wèile","plain":"wei le","en":"in order to; for the sake of; for the purpose of","short_en":"in order to; for the sake of; for the purpose of","pos":"preposition","audio":"wei4le.mp3"},{"ch":"向","py":"xiàng","plain":"xiang","en":"direction; towards; to turn; to face","short_en":"direction; towards; to turn; to face","pos":"preposition","audio":"xiang4.mp3"},{"ch":"老","py":"lǎo","plain":"lao","en":"old; aged; tough; often (Kangxi radical 125)","short_en":"old; aged; tough; often (Kangxi radical 125)","pos":"adjective","audio":"lao3.mp3"},{"ch":"位","py":"wèi","plain":"wei","en":"position; location; (polite mw for people)","short_en":"position; location; (polite mw for people)","pos":"classifier","audio":"wei4.mp3"},{"ch":"先","py":"xiān","plain":"xian","en":"first; early; before","short_en":"first; early; before","pos":"adverb","audio":"xian1.mp3"},{"ch":"种","py":"zhǒng","plain":"zhong","en":"kind; seed","short_en":"kind; seed","pos":"noun","audio":"zhong3.mp3"},{"ch":"最后","py":"zuìhòu","plain":"zui hou","en":"last; final; ultimately","short_en":"last; final; ultimately","pos":"directional locality","audio":"zui4hou4.mp3"},{"ch":"其他","py":"qítā","plain":"qi ta","en":"other; else","short_en":"other; else","pos":"pronoun","audio":"qi2ta1.mp3"},{"ch":"记得","py":"jìde","plain":"ji de","en":"remember","short_en":"remember","pos":"verb","audio":"ji4de.mp3"},{"ch":"或者","py":"huòzhě","plain":"huo zhe","en":"or; possible; maybe; perhaps","short_en":"or; possible; maybe; perhaps","pos":"conjunction","audio":"huo4zhe3.mp3"},{"ch":"过去","py":"guòqù","plain":"guo qu","en":"in the past; formerly","short_en":"in the past; formerly","pos":"time word","audio":"guo4qu4.mp3"},{"ch":"担心","py":"dānxīn","plain":"dan xin","en":"to worry; feel anxious","short_en":"to worry; feel anxious","pos":"verb","audio":"dan1xin1.mp3"},{"ch":"条","py":"tiáo","plain":"tiao","en":"twig; strip; item;&nbsp;m. (for long, narrow things)","short_en":"twig; strip; item;&nbsp;m. (for long, narrow things)","pos":"classifier","audio":"tiao2.mp3"},{"ch":"以前","py":"yǐqián","plain":"yi qian","en":"before; formerly; previous","short_en":"before; formerly; previous","pos":"directional locality","audio":"yi3qian2.mp3"},{"ch":"长","py":"zhǎng","plain":"zhang","en":"grow; grow up; increase (Kangxi radical 168)","short_en":"grow; grow up; increase (Kangxi radical 168)","pos":"verb","audio":"zhang3.mp3"},{"ch":"世界","py":"shìjiè","plain":"shi jie","en":"world","short_en":"world","pos":"noun","audio":"shi4jie4.mp3"},{"ch":"重要","py":"zhòngyào","plain":"zhong yao","en":"important; significant; major","short_en":"important; significant; major","pos":"adjective","audio":"zhong4yao4.mp3"},{"ch":"别人","py":"biéren","plain":"bie ren","en":"others; other people; another person","short_en":"others; other people; another person","pos":"pronoun","audio":"bie2ren.mp3"},{"ch":"机会","py":"jīhuì","plain":"ji hui","en":"chance; opportunity","short_en":"chance; opportunity","pos":"noun","audio":"ji1hui4.mp3"},{"ch":"张","py":"zhāng","plain":"zhang","en":"(mw for flat objects); spread; sheet of paper; (common surname)","short_en":"(mw for flat objects); spread; sheet of paper; (common surname)","pos":"personal name","audio":"zhang1.mp3"},{"ch":"接","py":"jiē","plain":"jie","en":"connect; to meet; to pick up (somebody); to receive","short_en":"connect; to meet; to pick up (somebody); to receive","pos":"verb","audio":"jie1.mp3"},{"ch":"比赛","py":"bǐsài","plain":"bi sai","en":"match; competition","short_en":"match; competition","pos":"verb with nominal function","audio":"bi3sai4.mp3"},{"ch":"关","py":"guān","plain":"guan","en":"to close; shut; concern; relationship; turn off; mountain pass","short_en":"to close; shut; concern; relationship; turn off; mountain pass","pos":"verb","audio":"guan1.mp3"},{"ch":"关系","py":"guānxi","plain":"guan xi","en":"relation; to concern","short_en":"relation; to concern","pos":"noun","audio":"guan1xi.mp3"},{"ch":"马","py":"mǎ","plain":"ma","en":"horse (Kangxi radical 187)","short_en":"horse (Kangxi radical 187)","pos":"personal name","audio":"ma3.mp3"},{"ch":"马上","py":"mǎshàng","plain":"ma shang","en":"at once; immediately; right away","short_en":"at once; immediately; right away","pos":"adverb","audio":"ma3shang4.mp3"},{"ch":"决定","py":"juédìng","plain":"jue ding","en":"decide; resolve; make up one's mind","short_en":"decide; resolve; make up one's mind","pos":"verb","audio":"jue2ding4.mp3"},{"ch":"关于","py":"guānyú","plain":"guan yu","en":"about; regarding; concerning","short_en":"about; regarding; concerning","pos":"preposition","audio":"guan1yu2.mp3"},{"ch":"难","py":"nán","plain":"nan","en":"difficult","short_en":"difficult","pos":"adjective as adverbial","audio":"nan2.mp3"},{"ch":"了解","py":"liǎojiě","plain":"liao jie","en":"comprehend; understand; know; find out","short_en":"comprehend; understand; know; find out","pos":"verb","audio":"liao3jie3.mp3"},{"ch":"站","py":"zhàn","plain":"zhan","en":"stand; a station; be on one's feet; service center","short_en":"stand; a station; be on one's feet; service center","pos":"verb","audio":"zhan4.mp3"},{"ch":"结束","py":"jiéshù","plain":"jie shu","en":"to end; to finish; conclude","short_en":"to end; to finish; conclude","pos":"verb","audio":"jie2shu4.mp3"},{"ch":"清楚","py":"qīngchu","plain":"qing chu","en":"clear; distinct; without ambiguity","short_en":"clear; distinct; without ambiguity","pos":"adjective","audio":"qing1chu.mp3"},{"ch":"愿意","py":"yuànyì","plain":"yuan yi","en":"be willing; want to; be ready","short_en":"be willing; want to; be ready","pos":"verb","audio":"yuan4yi4.mp3"},{"ch":"花","py":"huā","plain":"hua","en":"flower; blossom; spend money; cost","short_en":"flower; blossom; spend money; cost","pos":"verb","audio":"hua1.mp3"},{"ch":"照片","py":"zhàopiàn","plain":"zhao pian","en":"picture; photograph","short_en":"picture; photograph","pos":"noun","audio":"zhao4pian4.mp3"},{"ch":"欢迎","py":"huānyíng","plain":"huan ying","en":"to welcome; greet","short_en":"to welcome; greet","pos":"verb","audio":"huan1ying2.mp3"},{"ch":"总是","py":"zǒngshì","plain":"zong shi","en":"always; invariably","short_en":"always; invariably","pos":"adverb","audio":"zong3shi4.mp3"},{"ch":"嘴","py":"zuǐ","plain":"zui","en":"mouth","short_en":"mouth","pos":"noun","audio":"zui3.mp3"},{"ch":"参加","py":"cānjiā","plain":"can jia","en":"participate; join; take part in","short_en":"participate; join; take part in","pos":"verb","audio":"can1jia1.mp3"},{"ch":"办法","py":"bànfǎ","plain":"ban fa","en":"method; way (of doing something)","short_en":"method; way (of doing something)","pos":"noun","audio":"ban4fa3.mp3"},{"ch":"选择","py":"xuǎnzé","plain":"xuan ze","en":"select; to pick; choose","short_en":"select; to pick; choose","pos":"verb","audio":"xuan3ze2.mp3"},{"ch":"坏","py":"huài","plain":"huai","en":"bad; broken","short_en":"bad; broken","pos":"adjective","audio":"huai4.mp3"},{"ch":"打算","py":"dǎsuàn","plain":"da suan","en":"to plan; intend","short_en":"to plan; intend","pos":"verb","audio":"da3suan4.mp3"},{"ch":"试","py":"shì","plain":"shi","en":"to try; to test","short_en":"to try; to test","pos":"verb","audio":"shi4.mp3"},{"ch":"特别","py":"tèbié","plain":"te bie","en":"special; particular","short_en":"special; particular","pos":"adverb","audio":"te4bie2.mp3"},{"ch":"注意","py":"zhùyì","plain":"zhu yi","en":"pay attention to; take notice of; be careful","short_en":"pay attention to; take notice of; be careful","pos":"verb","audio":"zhu4yi4.mp3"},{"ch":"其实","py":"qíshí","plain":"qi shi","en":"as a matter of fact; actually; in fact","short_en":"as a matter of fact; actually; in fact","pos":"adverb","audio":"qi2shi2.mp3"},{"ch":"小心","py":"xiǎoxīn","plain":"xiao xin","en":"take care; be careful","short_en":"take care; be careful","pos":"adjective","audio":"xiao3xin1.mp3"},{"ch":"久","py":"jiǔ","plain":"jiu","en":"long (time)","short_en":"long (time)","pos":"adjective","audio":"jiu3.mp3"},{"ch":"只有","py":"zhǐyǒu","plain":"zhi you","en":"only; alone","short_en":"only; alone","pos":"conjunction","audio":"zhi3you3.mp3"},{"ch":"讲","py":"jiǎng","plain":"jiang","en":"to talk; to lecture; to explain; a speech","short_en":"to talk; to lecture; to explain; a speech","pos":"verb","audio":"jiang3.mp3"},{"ch":"故事","py":"gùshi","plain":"gu shi","en":"story; tale","short_en":"story; tale","pos":"noun","audio":"gu4shi.mp3"},{"ch":"换","py":"huàn","plain":"huan","en":"change; to exchange; to barter; to trade","short_en":"change; to exchange; to barter; to trade","pos":"verb","audio":"huan4.mp3"},{"ch":"结婚","py":"jiéhūn","plain":"jie hun","en":"get married","short_en":"get married","pos":"verb","audio":"jie2hun1.mp3"},{"ch":"段","py":"duàn","plain":"duan","en":"paragraph; segment; section","short_en":"paragraph; segment; section","pos":"classifier","audio":"duan4.mp3"},{"ch":"努力","py":"nǔlì","plain":"nu li","en":"make great effort; try hard","short_en":"make great effort; try hard","pos":"adjective as adverbial","audio":"nu3li4.mp3"},{"ch":"害怕","py":"hàipà","plain":"hai pa","en":"afraid of; to fear","short_en":"afraid of; to fear","pos":"verb","audio":"hai4pa4.mp3"},{"ch":"刚才","py":"gāngcái","plain":"gang cai","en":"just now; a moment ago","short_en":"just now; a moment ago","pos":"time word","audio":"gang1cai2.mp3"},{"ch":"节目","py":"jiémù","plain":"jie mu","en":"program; item (on a program)","short_en":"program; item (on a program)","pos":"noun","audio":"jie2mu4.mp3"},{"ch":"辆","py":"liàng","plain":"liang","en":"(mw for vehicles)","short_en":"(mw for vehicles)","pos":"classifier","audio":"liang4.mp3"},{"ch":"万","py":"wàn","plain":"wan","en":"ten thousand","short_en":"ten thousand","pos":"numeral","audio":"wan4.mp3"},{"ch":"解决","py":"jiějué","plain":"jie jue","en":"settle (a dispute); resolve; solve","short_en":"settle (a dispute); resolve; solve","pos":"verb","audio":"jie3jue2.mp3"},{"ch":"办公室","py":"bàngōngshì","plain":"ban gong shi","en":"office","short_en":"office","pos":"noun","audio":"ban4gong1shi4.mp3"},{"ch":"奇怪","py":"qíguài","plain":"qi guai","en":"strange; odd","short_en":"strange; odd","pos":"verb","audio":"qi2guai4.mp3"},{"ch":"同意","py":"tóngyì","plain":"tong yi","en":"agree; to consent; approve","short_en":"agree; to consent; approve","pos":"verb","audio":"tong2yi4.mp3"},{"ch":"游戏","py":"yóuxì","plain":"you xi","en":"game; play; recreation","short_en":"game; play; recreation","pos":"noun","audio":"you2xi4.mp3"},{"ch":"帮忙","py":"bāngmáng","plain":"bang mang","en":"to help","short_en":"to help","pos":"verb","audio":"bang1mang2.mp3"},{"ch":"国家","py":"guójiā","plain":"guo jia","en":"country; state; nation","short_en":"country; state; nation","pos":"noun","audio":"guo2jia1.mp3"},{"ch":"最近","py":"zuìjìn","plain":"zui jin","en":"recently; lately; soon; in the near future;","short_en":"recently; lately; soon; in the near future;","pos":"time word","audio":"zui4jin4.mp3"},{"ch":"声音","py":"shēngyīn","plain":"sheng yin","en":"sound; voice","short_en":"sound; voice","pos":"noun","audio":"sheng1yin1.mp3"},{"ch":"可爱","py":"kě'ài","plain":"ke ai","en":"cute; lovable; likable; lovely","short_en":"cute; lovable; likable; lovely","pos":"adjective","audio":"ke3'ai4.mp3"},{"ch":"分","py":"fēn","plain":"fen","en":"divide; fraction; minute","short_en":"divide; fraction; minute","pos":"verb","audio":"fen1.mp3"},{"ch":"完成","py":"wánchéng","plain":"wan cheng","en":"accomplish; complete; fulfill","short_en":"accomplish; complete; fulfill","pos":"verb","audio":"wan2cheng2.mp3"},{"ch":"半","py":"bàn","plain":"ban","en":"half; semi-; incomplete","short_en":"half; semi-; incomplete","pos":"numeral","audio":"ban4.mp3"},{"ch":"要求","py":"yāoqiú","plain":"yao qiu","en":"demand; request","short_en":"demand; request","pos":"verb","audio":"yao1qiu2.mp3"},{"ch":"除了","py":"chúle","plain":"chu le","en":"besides; except for; aside from; in addition to","short_en":"besides; except for; aside from; in addition to","pos":"preposition","audio":"chu2le.mp3"},{"ch":"容易","py":"róngyì","plain":"rong yi","en":"easy; likely; liable (to)","short_en":"easy; likely; liable (to)","pos":"adjective as adverbial","audio":"rong2yi4.mp3"},{"ch":"教","py":"jiāo","plain":"jiao","en":"teach","short_en":"teach","pos":"verb","audio":"jiao1.mp3"},{"ch":"脸","py":"liǎn","plain":"lian","en":"face","short_en":"face","pos":"noun","audio":"lian3.mp3"},{"ch":"简单","py":"jiǎndān","plain":"jian dan","en":"simple; not complicated","short_en":"simple; not complicated","pos":"adjective","audio":"jian3dan1.mp3"},{"ch":"检查","py":"jiǎnchá","plain":"jian cha","en":"to check; examine; inspect","short_en":"to check; examine; inspect","pos":"verb with nominal function","audio":"jian3cha2.mp3"},{"ch":"音乐","py":"yīnyuè","plain":"yin yue","en":"music","short_en":"music","pos":"noun","audio":"yin1yue4.mp3"},{"ch":"越","py":"yuè","plain":"yue","en":"the more...the more...","short_en":"the more...the more...","pos":"adverb","audio":"yue4.mp3"},{"ch":"照顾","py":"zhàogù","plain":"zhao gu","en":"take care of; look after; give consideration","short_en":"take care of; look after; give consideration","pos":"verb","audio":"zhao4gu4.mp3"},{"ch":"聪明","py":"cōngming","plain":"cong ming","en":"intelligent; clever; bright; smart","short_en":"intelligent; clever; bright; smart","pos":"adjective","audio":"cong1ming.mp3"},{"ch":"甜","py":"tián","plain":"tian","en":"sweet","short_en":"sweet","pos":"adjective","audio":"tian2.mp3"},{"ch":"突然","py":"tūrán","plain":"tu ran","en":"suddenly; abruptly","short_en":"suddenly; abruptly","pos":"adjective as adverbial","audio":"tu1ran2.mp3"},{"ch":"终于","py":"zhōngyú","plain":"zhong yu","en":"at last; in the end; finally","short_en":"at last; in the end; finally","pos":"adverb","audio":"zhong1yu2.mp3"},{"ch":"船","py":"chuán","plain":"chuan","en":"a boat; vessel; ship","short_en":"a boat; vessel; ship","pos":"noun","audio":"chuan2.mp3"},{"ch":"口","py":"kǒu","plain":"kou","en":"mouth (Kangxi radical 30)","short_en":"mouth (Kangxi radical 30)","pos":"classifier","audio":"kou3.mp3"},{"ch":"回答","py":"huídá","plain":"hui da","en":"to reply; to answer","short_en":"to reply; to answer","pos":"verb","audio":"hui2da2.mp3"},{"ch":"礼物","py":"lǐwù","plain":"li wu","en":"gift; present","short_en":"gift; present","pos":"noun","audio":"li3wu4.mp3"},{"ch":"头发","py":"tóufa","plain":"tou fa","en":"hair (on the head)","short_en":"hair (on the head)","pos":"noun","audio":"tou2fa.mp3"},{"ch":"关心","py":"guānxīn","plain":"guan xin","en":"be concerned about; be interested in","short_en":"be concerned about; be interested in","pos":"verb","audio":"guan1xin1.mp3"},{"ch":"脚","py":"jiǎo","plain":"jiao","en":"foot (body part)","short_en":"foot (body part)","pos":"noun","audio":"jiao3.mp3"},{"ch":"生气","py":"shēngqì","plain":"sheng qi","en":"angry; mad","short_en":"angry; mad","pos":"adjective","audio":"sheng1qi4.mp3"},{"ch":"哭","py":"kū","plain":"ku","en":"cry; weep","short_en":"cry; weep","pos":"verb","audio":"ku1.mp3"},{"ch":"画","py":"huà","plain":"hua","en":"draw; picture; painting","short_en":"draw; picture; painting","pos":"verb","audio":"hua4.mp3"},{"ch":"年轻","py":"niánqīng","plain":"nian qing","en":"young","short_en":"young","pos":"adjective","audio":"nian2qing1.mp3"},{"ch":"包","py":"bāo","plain":"bao","en":"to cover; to wrap; to hold; include; (mw for containers, packages, etc.)","short_en":"to cover; to wrap; to hold; include; (mw for containers, packages, etc.)","pos":"verb","audio":"bao1.mp3"},{"ch":"腿","py":"tuǐ","plain":"tui","en":"leg","short_en":"leg","pos":"noun","audio":"tui3.mp3"},{"ch":"忘记","py":"wàngjì","plain":"wang ji","en":"forget; overlook; neglect","short_en":"forget; overlook; neglect","pos":"verb","audio":"wang4ji4.mp3"},{"ch":"搬","py":"bān","plain":"ban","en":"to move; to transport","short_en":"to move; to transport","pos":"verb","audio":"ban1.mp3"},{"ch":"楼","py":"lóu","plain":"lou","en":"building, story","short_en":"building, story","pos":"noun","audio":"lou2.mp3"},{"ch":"遇到","py":"yùdào","plain":"yu dao","en":"come across; run into; encounter; meet","short_en":"come across; run into; encounter; meet","pos":"verb","audio":"yu4dao4.mp3"},{"ch":"新闻","py":"xīnwén","plain":"xin wen","en":"news","short_en":"news","pos":"noun","audio":"xin1wen2.mp3"},{"ch":"比较","py":"bǐjiào","plain":"bi jiao","en":"compare; contrast; relatively","short_en":"compare; contrast; relatively","pos":"adverb","audio":"bi3jiao4.mp3"},{"ch":"双","py":"shuāng","plain":"shuang","en":"two; double; (mw for pairs)","short_en":"two; double; (mw for pairs)","pos":"numeral","audio":"shuang1.mp3"},{"ch":"见面","py":"jiànmiàn","plain":"jian mian","en":"meet/see somebody (face to face); meeting","short_en":"meet/see somebody (face to face); meeting","pos":"verb","audio":"jian4mian4.mp3"},{"ch":"经常","py":"jīngcháng","plain":"jing chang","en":"often; frequently; daily","short_en":"often; frequently; daily","pos":"adverb","audio":"jing1chang2.mp3"},{"ch":"城市","py":"chéngshì","plain":"cheng shi","en":"city or town","short_en":"city or town","pos":"noun","audio":"cheng2shi4.mp3"},{"ch":"一会儿","py":"yíhuìr","plain":"yi hui r","en":"a while; a moment","short_en":"a while; a moment","pos":"numeral","audio":"yi2hui4r.mp3"},{"ch":"附近","py":"fùjìn","plain":"fu jin","en":"(in the) vicinity; nearby; neighboring","short_en":"(in the) vicinity; nearby; neighboring","pos":"directional locality","audio":"fu4jin4.mp3"},{"ch":"借","py":"jiè","plain":"jie","en":"lend; borrow; excuse","short_en":"lend; borrow; excuse","pos":"verb","audio":"jie4.mp3"},{"ch":"影响","py":"yǐngxiǎng","plain":"ying xiang","en":"influence; affect; effect","short_en":"influence; affect; effect","pos":"verb with nominal function","audio":"ying3xiang3.mp3"},{"ch":"认真","py":"rènzhēn","plain":"ren zhen","en":"take seriously","short_en":"take seriously","pos":"v.o.","audio":"ren4zhen1.mp3"},{"ch":"米","py":"mǐ","plain":"mi","en":"rice; meter (Kangxi radical 119)","short_en":"rice; meter (Kangxi radical 119)","pos":"classifier","audio":"mi3.mp3"},{"ch":"差","py":"chà","plain":"cha","en":"differ from; fall short of; poor; inferior","short_en":"differ from; fall short of; poor; inferior","pos":"adjective","audio":"cha4.mp3"},{"ch":"银行","py":"yínháng","plain":"yin hang","en":"bank","short_en":"bank","pos":"noun","audio":"yin2hang2.mp3"},{"ch":"安静","py":"ānjìng","plain":"an jing","en":"quiet; peaceful; calm","short_en":"quiet; peaceful; calm","pos":"adjective","audio":"an1jing4.mp3"},{"ch":"多么","py":"duōme","plain":"duo me","en":"how (wonderful, etc.); what (a great idea)","short_en":"how (wonderful, etc.); what (a great idea)","pos":"adverb","audio":"duo1me.mp3"},{"ch":"饿","py":"è","plain":"e","en":"hungry","short_en":"hungry","pos":"verb","audio":"e4.mp3"},{"ch":"根据","py":"gēnjù","plain":"gen ju","en":"on the basis of; according to","short_en":"on the basis of; according to","pos":"preposition","audio":"gen1ju4.mp3"},{"ch":"几乎","py":"jīhū","plain":"ji hu","en":"almost","short_en":"almost","pos":"adverb","audio":"ji1hu1.mp3"},{"ch":"后来","py":"hòulái","plain":"hou lai","en":"afterwards; after; later","short_en":"afterwards; after; later","pos":"time word","audio":"hou4lai2.mp3"},{"ch":"动物","py":"dòngwù","plain":"dong wu","en":"animal","short_en":"animal","pos":"noun","audio":"dong4wu4.mp3"},{"ch":"西","py":"xī","plain":"xi","en":"West (Kangxi radical 146)","short_en":"West (Kangxi radical 146)","pos":"directional locality","audio":"xi1.mp3"},{"ch":"一边","py":"yī̠biān","plain":"yi bian","en":"one side; on the one hand; at the same time","short_en":"one side; on the one hand; at the same time","pos":"adverb","audio":"yi1bian1.mp3"},{"ch":"舒服","py":"shūfu","plain":"shu fu","en":"comfortable; feeling well","short_en":"comfortable; feeling well","pos":"adjective","audio":"shu1fu.mp3"},{"ch":"一般","py":"yī̠bān","plain":"yi ban","en":"general; ordinary; common; same","short_en":"general; ordinary; common; same","pos":"adjective","audio":"yi4ban1.mp3"},{"ch":"叔叔","py":"shūshu","plain":"shu shu","en":"(informal) father's younger brother; uncle","short_en":"(informal) father's younger brother; uncle","pos":"noun","audio":"shu1shu.mp3"},{"ch":"疼","py":"téng","plain":"teng","en":"ache; sore; (it) hurts; love fondly","short_en":"ache; sore; (it) hurts; love fondly","pos":"adjective","audio":"teng2.mp3"},{"ch":"迟到","py":"chídào","plain":"chi dao","en":"be/come/arrive late","short_en":"be/come/arrive late","pos":"verb","audio":"chi2dao4.mp3"},{"ch":"历史","py":"lìshǐ","plain":"li shi","en":"history; past records","short_en":"history; past records","pos":"noun","audio":"li4shi3.mp3"},{"ch":"啤酒","py":"píjiǔ","plain":"pi jiu","en":"beer","short_en":"beer","pos":"noun","audio":"pi2jiu3.mp3"},{"ch":"短","py":"duǎn","plain":"duan","en":"short (opposite of 长 cháng)","short_en":"short (opposite of 长 cháng)","pos":"adjective","audio":"duan3.mp3"},{"ch":"经过","py":"jīngguò","plain":"jing guo","en":"to pass; go through; as a result of","short_en":"to pass; go through; as a result of","pos":"preposition","audio":"jing1guo4.mp3"},{"ch":"周末","py":"zhōumò","plain":"zhou mo","en":"weekend","short_en":"weekend","pos":"time word","audio":"zhou1mo4.mp3"},{"ch":"班","py":"bān","plain":"ban","en":"class; work","short_en":"class; work","pos":"noun","audio":"ban1.mp3"},{"ch":"习惯","py":"xíguàn","plain":"xi guan","en":"habit; be accustomed to; usual practice","short_en":"habit; be accustomed to; usual practice","pos":"noun","audio":"xi2guan4.mp3"},{"ch":"公园","py":"gōngyuán","plain":"gong yuan","en":"park; garden","short_en":"park; garden","pos":"noun","audio":"gong1yuan2.mp3"},{"ch":"干净","py":"gānjìng","plain":"gan jing","en":"clean; neat and tidy","short_en":"clean; neat and tidy","pos":"adjective","audio":"gan1jing4.mp3"},{"ch":"鸟","py":"niǎo","plain":"niao","en":"bird (Kangxi radical 196)","short_en":"bird (Kangxi radical 196)","pos":"noun","audio":"niao3.mp3"},{"ch":"健康","py":"jiànkāng","plain":"jian kang","en":"health; healthy","short_en":"health; healthy","pos":"adjective with nominal function","audio":"jian4kang1.mp3"},{"ch":"树","py":"shù","plain":"shu","en":"tree","short_en":"tree","pos":"noun","audio":"shu4.mp3"},{"ch":"蛋糕","py":"dàngāo","plain":"dan gao","en":"cake","short_en":"cake","pos":"noun","audio":"dan4gao1.mp3"},{"ch":"元","py":"yuán","plain":"yuan","en":"Chinese monetary unit; dollar; first; principal, primary;","short_en":"Chinese monetary unit; dollar; first; principal, primary;","pos":"classifier","audio":"yuan2.mp3"},{"ch":"客人","py":"kèren","plain":"ke ren","en":"guest; customer","short_en":"guest; customer","pos":"noun","audio":"ke4ren.mp3"},{"ch":"会议","py":"huìyì","plain":"hui yi","en":"meeting; conference","short_en":"meeting; conference","pos":"noun","audio":"hui4yi4.mp3"},{"ch":"奶奶","py":"nǎinai","plain":"nai nai","en":"grandma; (informal) paternal grandmother","short_en":"grandma; (informal) paternal grandmother","pos":"noun","audio":"nai3nai.mp3"},{"ch":"裤子","py":"kùzi","plain":"ku zi","en":"pants; trousers","short_en":"pants; trousers","pos":"noun","audio":"ku4zi.mp3"},{"ch":"邻居","py":"línjū","plain":"lin ju","en":"neighbor","short_en":"neighbor","pos":"noun","audio":"lin2ju1.mp3"},{"ch":"经理","py":"jīnglǐ","plain":"jing li","en":"manager; director","short_en":"manager; director","pos":"noun","audio":"jing1li3.mp3"},{"ch":"层","py":"céng","plain":"ceng","en":"layer, level, storey","short_en":"layer, level, storey","pos":"classifier","audio":"ceng2.mp3"},{"ch":"灯","py":"dēng","plain":"deng","en":"lamp; light","short_en":"lamp; light","pos":"noun","audio":"deng1.mp3"},{"ch":"练习","py":"liànxí","plain":"lian xi","en":"practice; exercise","short_en":"practice; exercise","pos":"verb","audio":"lian4xi2.mp3"},{"ch":"爷爷","py":"yéye","plain":"ye ye","en":"(informal) father's father; paternal grandfather","short_en":"(informal) father's father; paternal grandfather","pos":"noun","audio":"ye2ye.mp3"},{"ch":"蓝","py":"lán","plain":"lan","en":"blue","short_en":"blue","pos":"adjective","audio":"lan2.mp3"},{"ch":"难过","py":"nánguò","plain":"nan guo","en":"be grieved; be sad; have a hard time","short_en":"be grieved; be sad; have a hard time","pos":"adjective","audio":"nan2guo4.mp3"},{"ch":"中间","py":"zhōngjiān","plain":"zhong jian","en":"center; middle; between; among","short_en":"center; middle; between; among","pos":"directional locality","audio":"zhong1jian1.mp3"},{"ch":"帽子","py":"màozi","plain":"mao zi","en":"hat; cap","short_en":"hat; cap","pos":"noun","audio":"mao4zi.mp3"},{"ch":"司机","py":"sījī","plain":"si ji","en":"driver; chauffeur","short_en":"driver; chauffeur","pos":"noun","audio":"si1ji1.mp3"},{"ch":"旧","py":"jiù","plain":"jiu","en":"old; past; used","short_en":"old; past; used","pos":"adjective","audio":"jiu4.mp3"},{"ch":"满意","py":"mǎnyì","plain":"man yi","en":"satisfied; pleased","short_en":"satisfied; pleased","pos":"verb","audio":"man3yi4.mp3"},{"ch":"骑","py":"qí","plain":"qi","en":"to ride (an animal or bike); to sit astride","short_en":"to ride (an animal or bike); to sit astride","pos":"verb","audio":"qi2.mp3"},{"ch":"太阳","py":"tàiyáng","plain":"tai yang","en":"the sun","short_en":"the sun","pos":"noun","audio":"tai4yang2.mp3"},{"ch":"极","py":"jí","plain":"ji","en":"an extreme; pole; very","short_en":"an extreme; pole; very","pos":"adverb","audio":"ji2.mp3"},{"ch":"主要","py":"zhǔyào","plain":"zhu yao","en":"main; principal; major","short_en":"main; principal; major","pos":"non-predicate adjective","audio":"zhu3yao4.mp3"},{"ch":"同事","py":"tóngshì","plain":"tong shi","en":"colleague; co-worker","short_en":"colleague; co-worker","pos":"noun","audio":"tong2shi4.mp3"},{"ch":"鼻子","py":"bízi","plain":"bi zi","en":"nose","short_en":"nose","pos":"noun","audio":"bi2zi.mp3"},{"ch":"角","py":"jiǎo","plain":"jiao","en":"horn; angle; unit of money (1/10 yuan); corner (Kangxi radical 148)","short_en":"horn; angle; unit of money (1/10 yuan); corner (Kangxi radical 148)","pos":"classifier","audio":"jiao3.mp3"},{"ch":"变化","py":"biànhuà","plain":"bian hua","en":"change; vary","short_en":"change; vary","pos":"verb with nominal function","audio":"bian4hua4.mp3"},{"ch":"东","py":"dōng","plain":"dong","en":"East","short_en":"East","pos":"directional locality","audio":"dong1.mp3"},{"ch":"年级","py":"niánjí","plain":"nian ji","en":"grade; year (in school)","short_en":"grade; year (in school)","pos":"noun","audio":"nian2ji2.mp3"},{"ch":"环境","py":"huánjìng","plain":"huan jing","en":"environment; surroundings;&nbsp;situation","short_en":"environment; surroundings;&nbsp;situation","pos":"noun","audio":"huan2jing4.mp3"},{"ch":"胖","py":"pàng","plain":"pang","en":"fat; plump","short_en":"fat; plump","pos":"adjective","audio":"pang4.mp3"},{"ch":"地图","py":"dìtú","plain":"di tu","en":"map;&nbsp;atlas","short_en":"map;&nbsp;atlas","pos":"noun","audio":"di4tu2.mp3"},{"ch":"面包","py":"miànbāo","plain":"mian bao","en":"bread","short_en":"bread","pos":"noun","audio":"mian4bao1.mp3"},{"ch":"电子邮件","py":"diànzǐ yóujiàn","plain":"dian zi you jian","en":"email","short_en":"email","pos":"noun","audio":"dian4zi3you2jian4.mp3"},{"ch":"耳朵","py":"ěrduo","plain":"er duo","en":"ear","short_en":"ear","pos":"noun","audio":"er3duo.mp3"},{"ch":"裙子","py":"qúnzi","plain":"qun zi","en":"skirt; petticoat","short_en":"skirt; petticoat","pos":"noun","audio":"qun2zi.mp3"},{"ch":"新鲜","py":"xīnxiān","plain":"xin xian","en":"fresh (experience, food, etc.); new; novel","short_en":"fresh (experience, food, etc.); new; novel","pos":"adjective","audio":"xin1xian1.mp3"},{"ch":"放心","py":"fàng xīn","plain":"fang xin","en":"set one's mind at rest; rest assured; feel relieved","short_en":"set one's mind at rest; rest assured; feel relieved","pos":"verb","audio":"fang4xin1.mp3"},{"ch":"聊天","py":"liáotiān","plain":"liao tian","en":"chat; gossip","short_en":"chat; gossip","pos":"verb","audio":"liao2tian1.mp3"},{"ch":"南","py":"nán","plain":"nan","en":"South","short_en":"South","pos":"personal name","audio":"nan2.mp3"},{"ch":"热情","py":"rèqíng","plain":"re qing","en":"enthusiastic; passionate","short_en":"enthusiastic; passionate","pos":"adjective with nominal function","audio":"re4qing2.mp3"},{"ch":"信用卡","py":"xìnyòngkǎ","plain":"xin yong ka","en":"credit card","short_en":"credit card","pos":"noun","audio":"xin4yong4ka3.mp3"},{"ch":"电梯","py":"diàntī","plain":"dian ti","en":"elevator","short_en":"elevator","pos":"noun","audio":"dian4ti1.mp3"},{"ch":"方便","py":"fāngbiàn","plain":"fang bian","en":"convenient","short_en":"convenient","pos":"adjective","audio":"fang1bian4.mp3"},{"ch":"洗手间","py":"xị̌shǒujiān","plain":"xi shou jian","en":"toilet; lavatory; washroom","short_en":"toilet; lavatory; washroom","pos":"noun","audio":"xi3shou3jian1.mp3"},{"ch":"洗澡","py":"xǐzǎo","plain":"x z o","en":"take a bath","short_en":"take a bath","pos":"verb","audio":"xi3zao3.mp3"},{"ch":"饮料","py":"yǐnliào","plain":"yin liao","en":"beverage; drink","short_en":"beverage; drink","pos":"noun","audio":"yin3liao4.mp3"},{"ch":"校长","py":"xiàozhǎng","plain":"xiao zhang","en":"principal (of school, college or university); president; headmaster","short_en":"principal (of school, college or university); president; headmaster","pos":"noun","audio":"xiao4zhang3.mp3"},{"ch":"水平","py":"shuǐpíng","plain":"shui ping","en":"standard; level; proficiency","short_en":"standard; level; proficiency","pos":"noun","audio":"shui3ping2.mp3"},{"ch":"作业","py":"zuòyè","plain":"zuo ye","en":"school assignment; homework; task","short_en":"school assignment; homework; task","pos":"verb with nominal function","audio":"zuo4ye4.mp3"},{"ch":"衬衫","py":"chènshān","plain":"chen shan","en":"shirt; blouse","short_en":"shirt; blouse","pos":"noun","audio":"chen4shan1.mp3"},{"ch":"成绩","py":"chéngjì","plain":"cheng ji","en":"result; achievement; success","short_en":"result; achievement; success","pos":"noun","audio":"cheng2ji4.mp3"},{"ch":"碗","py":"wǎn","plain":"wan","en":"bowl; cup","short_en":"bowl; cup","pos":"noun","audio":"wan3.mp3"},{"ch":"阿姨","py":"āyí","plain":"a yi","en":"auntie; step-mother; mother's younger sister","short_en":"auntie; step-mother; mother's younger sister","pos":"noun","audio":"a1yi2.mp3"},{"ch":"图书馆","py":"túshūguǎn","plain":"tu shu guan","en":"library","short_en":"library","pos":"noun","audio":"tu2shu1guan3.mp3"},{"ch":"文化","py":"wénhuà","plain":"wen hua","en":"culture; civilization","short_en":"culture; civilization","pos":"noun","audio":"wen2hua4.mp3"},{"ch":"绿","py":"lǜ","plain":"lv","en":"green","short_en":"green","pos":"adjective","audio":"lv4.mp3"},{"ch":"打扫","py":"dạ̌sǎo","plain":"da sao","en":"to clean; to sweep","short_en":"to clean; to sweep","pos":"verb","audio":"da3sao3.mp3"},{"ch":"草","py":"cǎo","plain":"cao","en":"grass; straw; draft (of a document)","short_en":"grass; straw; draft (of a document)","pos":"noun","audio":"cao3.mp3"},{"ch":"冰箱","py":"bīngxiāng","plain":"bing xiang","en":"refrigerator; freezer","short_en":"refrigerator; freezer","pos":"noun","audio":"bing1xiang1.mp3"},{"ch":"数学","py":"shùxué","plain":"shu xue","en":"mathematics","short_en":"mathematics","pos":"noun","audio":"shu4xue2.mp3"},{"ch":"自行车","py":"zìxíngchē","plain":"zi xing che","en":"bike; bicycle","short_en":"bike; bicycle","pos":"noun","audio":"zi4xing2che1.mp3"},{"ch":"着急","py":"zháojí","plain":"zhao ji","en":"to worry; feel anxious","short_en":"to worry; feel anxious","pos":"adjective","audio":"zhao2ji2.mp3"},{"ch":"瘦","py":"shòu","plain":"shou","en":"thin; tight; lean","short_en":"thin; tight; lean","pos":"adjective","audio":"shou4.mp3"},{"ch":"提高","py":"tígāo","plain":"ti gao","en":"to raise; heighten; improve","short_en":"to raise; heighten; improve","pos":"verb","audio":"ti2gao1.mp3"},{"ch":"起飞","py":"qǐfēi","plain":"qi fei","en":"take off (in an airplane); liftoff","short_en":"take off (in an airplane); liftoff","pos":"verb","audio":"qi3fei1.mp3"},{"ch":"矮","py":"ǎi","plain":"ai","en":"short (not tall); low","short_en":"short (not tall); low","pos":"adjective","audio":"ai3.mp3"},{"ch":"地铁","py":"dìtiě","plain":"di tie","en":"underground (railway); subway","short_en":"underground (railway); subway","pos":"noun","audio":"di4tie3.mp3"},{"ch":"体育","py":"tǐyù","plain":"ti yu","en":"physical education/training; sports","short_en":"physical education/training; sports","pos":"noun","audio":"ti3yu4.mp3"},{"ch":"刻","py":"kè","plain":"ke","en":"quarter (hour); (mw for short time intervals); carve; to cut","short_en":"quarter (hour); (mw for short time intervals); carve; to cut","pos":"verb","audio":"ke4.mp3"},{"ch":"护照","py":"hùzhào","plain":"hu zhao","en":"passport","short_en":"passport","pos":"noun","audio":"hu4zhao4.mp3"},{"ch":"节日","py":"jiérì","plain":"jie ri","en":"festival; holiday","short_en":"festival; holiday","pos":"noun","audio":"jie2ri4.mp3"},{"ch":"盘子","py":"pánzi","plain":"pan zi","en":"plate; dish; tray","short_en":"plate; dish; tray","pos":"noun","audio":"pan2zi.mp3"},{"ch":"一共","py":"yị̄gòng","plain":"yi gong","en":"altogether; in all; all told","short_en":"altogether; in all; all told","pos":"adverb","audio":"yi2gong4.mp3"},{"ch":"瓶子","py":"píngzi","plain":"ping zi","en":"bottle","short_en":"bottle","pos":"noun","audio":"ping2zi.mp3"},{"ch":"街道","py":"jiēdào","plain":"jie dao","en":"street","short_en":"street","pos":"noun","audio":"jie1dao4.mp3"},{"ch":"锻炼","py":"duànliàn","plain":"duan lian","en":"to exercise; work out; toughen; to temper","short_en":"to exercise; work out; toughen; to temper","pos":"verb with nominal function","audio":"duan4lian4.mp3"},{"ch":"感冒","py":"gǎnmào","plain":"gan mao","en":"catch cold; (common) cold","short_en":"catch cold; (common) cold","pos":"verb","audio":"gan3mao4.mp3"},{"ch":"爱好","py":"àihào","plain":"ai hao","en":"hobby; fond of; to like; interest","short_en":"hobby; fond of; to like; interest","pos":"noun","audio":"ai4hao4.mp3"},{"ch":"超市","py":"chāoshì","plain":"chao shi","en":"supermarket","short_en":"supermarket","pos":"noun","audio":"chao1shi4.mp3"},{"ch":"月亮","py":"yuèliang","plain":"yue liang","en":"the moon","short_en":"the moon","pos":"noun","audio":"yue4liang.mp3"},{"ch":"饱","py":"bǎo","plain":"bao","en":"eat until full; satisfied","short_en":"eat until full; satisfied","pos":"adjective","audio":"bao3.mp3"},{"ch":"有名","py":"yǒumíng","plain":"you ming","en":"famous; well-known","short_en":"famous; well-known","pos":"adjective","audio":"you3ming2.mp3"},{"ch":"香蕉","py":"xiāngjiāo","plain":"xiang jiao","en":"banana","short_en":"banana","pos":"noun","audio":"xiang1jiao1.mp3"},{"ch":"笔记本","py":"bǐjìběn","plain":"bi ji ben","en":"notebook","short_en":"notebook","pos":"noun","audio":"bi3ji4ben3.mp3"},{"ch":"夏","py":"xià","plain":"xia","en":"summer","short_en":"summer","pos":"time word morpheme","audio":"xia4.mp3"},{"ch":"菜单","py":"càidān","plain":"cai dan","en":"menu","short_en":"menu","pos":"noun","audio":"cai4dan1.mp3"},{"ch":"北方","py":"běifāng","plain":"bei fang","en":"north; the northern part of the country","short_en":"north; the northern part of the country","pos":"space word","audio":"bei3fang1.mp3"},{"ch":"上网","py":"shàngwǎng","plain":"shang wang","en":"to surf the web; to go online","short_en":"to surf the web; to go online","pos":"verb","audio":"shang4wang3.mp3"},{"ch":"季节","py":"jìjié","plain":"ji jie","en":"season; time; period","short_en":"season; time; period","pos":"noun","audio":"ji4jie2.mp3"},{"ch":"渴","py":"kě","plain":"ke","en":"thirsty","short_en":"thirsty","pos":"adjective","audio":"ke3.mp3"},{"ch":"发烧","py":"fāshāo","plain":"fa shao","en":"have a fever","short_en":"have a fever","pos":"verb","audio":"fa1shao1.mp3"},{"ch":"不但","py":"bụ̀dàn","plain":"bu dan","en":"not only","short_en":"not only","pos":"conjunction","audio":"bu2dan4.mp3"},{"ch":"空调","py":"kōngtiáo","plain":"kong tiao","en":"air-conditioner; air-conditioning","short_en":"air-conditioner; air-conditioning","pos":"noun","audio":"kong1tiao2.mp3"},{"ch":"照相机","py":"zhàoxiàngjī","plain":"zhao xiang ji","en":"camera","short_en":"camera","pos":"noun","audio":"zhao4xiang4ji1.mp3"},{"ch":"春","py":"chūn","plain":"chun","en":"spring (season); joyful","short_en":"spring (season); joyful","pos":"time word morpheme","audio":"chun1.mp3"},{"ch":"伞","py":"sǎn","plain":"san","en":"umbrella; parasol","short_en":"umbrella; parasol","pos":"noun","audio":"san3.mp3"},{"ch":"公斤","py":"gōngjīn","plain":"gong jin","en":"kilogram","short_en":"kilogram","pos":"classifier","audio":"gong1jin1.mp3"},{"ch":"个子","py":"gèzi","plain":"ge zi","en":"height; stature; build","short_en":"height; stature; build","pos":"noun","audio":"ge4zi.mp3"},{"ch":"熊猫","py":"xióngmāo","plain":"xiong mao","en":"panda","short_en":"panda","pos":"noun","audio":"xiong2mao1.mp3"},{"ch":"刷牙","py":"shuāyá","plain":"shua ya","en":"brush one's teeth","short_en":"brush one's teeth","pos":"verb","audio":"shua1ya2.mp3"},{"ch":"复习","py":"fùxí","plain":"fu xi","en":"review; revise","short_en":"review; revise","pos":"verb with nominal function","audio":"fu4xi2.mp3"},{"ch":"冬","py":"dōng","plain":"dong","en":"winter","short_en":"winter","pos":"time word morpheme","audio":"dong1.mp3"},{"ch":"请假","py":"qǐng jià","plain":"qing jia","en":"to ask for time off,&nbsp;ask for leave","short_en":"to ask for time off,&nbsp;ask for leave","pos":"verb","audio":"qing3jia4.mp3"},{"ch":"中文","py":"Zhōngwén","plain":"zhong wen","en":"Chinese (written) language","short_en":"Chinese (written) language","pos":"other proper noun","audio":"zhong1wen2.mp3"},{"ch":"秋","py":"qiū","plain":"qiu","en":"autumn; fall; harvest time","short_en":"autumn; fall; harvest time","pos":"time word morpheme","audio":"qiu1.mp3"},{"ch":"句子","py":"jùzi","plain":"ju zi","en":"sentence","short_en":"sentence","pos":"noun","audio":"ju4zi.mp3"},{"ch":"行李箱","py":"xínglǐxiāng","plain":"xing li xiang","en":"trunk; suitcase","short_en":"trunk; suitcase","pos":"noun","audio":"19880zht.mp3"},{"ch":"筷子","py":"kuàizi","plain":"kuai zi","en":"chopsticks","short_en":"chopsticks","pos":"noun","audio":"kuai4zi.mp3"},{"ch":"皮鞋","py":"píxié","plain":"pi xie","en":"leather shoes","short_en":"leather shoes","pos":"noun","audio":"19979lwh.mp3"},{"ch":"爬山","py":"páshān","plain":"pa shan","en":"mountain climbing","short_en":"mountain climbing","pos":"verb","audio":"pa2shan1.mp3"},{"ch":"黑板","py":"hēibǎn","plain":"hei ban","en":"blackboard","short_en":"blackboard","pos":"noun","audio":"hei1ban3.mp3"},{"ch":"感兴趣","py":"gǎn xìngqù","plain":"gan xing qu","en":"be interested in","short_en":"be interested in","pos":"adjective","audio":"gan3xing4qu4.mp3"},{"ch":"词典","py":"cídiǎn","plain":"ci dian","en":"dictionary","short_en":"dictionary","pos":"noun","audio":"ci2dian3.mp3"},{"ch":"留学","py":"liú xué","plain":"liu xue","en":"study abroad","short_en":"study abroad","pos":"verb","audio":"liu2xue2.mp3"},{"ch":"刮风","py":"guāfēng","plain":"gua feng","en":"windy; to blow (wind)","short_en":"windy; to blow (wind)","pos":"verb","audio":"986zl.mp3"},{"ch":"黄河","py":"huánghé","plain":"huang he","en":"Yellow River","short_en":"Yellow River","pos":"place name","audio":"huang2he2.mp3"}];
 
+const BUILTIN={1:B1,2:B2,3:B3};
 const SRS=[1,2,4,7,14,30,90];
-const STORE_KEY='hsk_write_v1';
-let progress={};
-let view='quiz', quiz=null, answer='', pinyinInput='', result=null, showHint=false, hasPlayed=false;
-let sessCorrect=0, sessWrong=0;
-let audioObj=null;
+const PKEY='hsk_prog_v3', IKEY='hsk_imp_v2';
+let actLvl=[1,2,3], impDecks={}, actImp=[];
+let progress={}, view='quiz';
+let quiz=null, answer='', pinyin='', result=null, hint=false, played=false;
+let sC=0, sW=0, audioObj=null, audioDB=null, audioCache={};
+let sqlJs=null, importing=false;
 
-function loadProgress(){try{const s=localStorage.getItem(STORE_KEY);if(s)progress=JSON.parse(s);}catch(e){}}
-function saveProgress(){try{localStorage.setItem(STORE_KEY,JSON.stringify(progress));}catch(e){}}
-function isDue(c){return !c||!c.nextReview||new Date()>=new Date(c.nextReview);}
-function nextInterval(cur,ok){if(!ok)return 1;const i=SRS.indexOf(cur);return SRS[Math.min(i<0?0:i+1,SRS.length-1)];}
-
-function speak(word){
-  if(audioObj){audioObj.pause();audioObj=null;}
-  if(word.audio){
-    audioObj=new Audio('audio/'+word.audio);
-    audioObj.play().catch(()=>fallbackTTS(word.ch));
-  } else fallbackTTS(word.ch);
+function loadState(){
+  try{progress=JSON.parse(localStorage.getItem(PKEY)||'{}');}catch(e){}
+  try{impDecks=JSON.parse(localStorage.getItem(IKEY)||'{}');actImp=Object.keys(impDecks);}catch(e){}
 }
-function fallbackTTS(text){
+function saveProg(){try{localStorage.setItem(PKEY,JSON.stringify(progress));}catch(e){}}
+function saveImp(){try{localStorage.setItem(IKEY,JSON.stringify(impDecks));}catch(e){}}
+
+async function openADB(){
+  if(audioDB)return audioDB;
+  return new Promise(r=>{
+    const req=indexedDB.open('hsk_audio_v2',1);
+    req.onupgradeneeded=e=>e.target.result.createObjectStore('b');
+    req.onsuccess=e=>{audioDB=e.target.result;r(audioDB);};
+    req.onerror=()=>r(null);
+  });
+}
+async function storeBlob(name,blob){
+  const db=await openADB();if(!db)return;
+  return new Promise(r=>{const tx=db.transaction('b','readwrite');tx.objectStore('b').put(blob,name);tx.oncomplete=r;tx.onerror=r;});
+}
+async function getBlob(name){
+  if(audioCache[name])return audioCache[name];
+  const db=await openADB();if(!db)return null;
+  return new Promise(r=>{
+    const req=db.transaction('b','readonly').objectStore('b').get(name);
+    req.onsuccess=e=>{
+      if(e.target.result){const u=URL.createObjectURL(e.target.result);audioCache[name]=u;r(u);}
+      else r(null);
+    };
+    req.onerror=()=>r(null);
+  });
+}
+
+async function playWord(w){
+  if(audioObj){audioObj.pause();audioObj=null;}
+  let src=null;
+  if(w._imp){src=await getBlob(w.audio);}
+  else if(w.audio){src='audio/'+w.audio;}
+  if(src){audioObj=new Audio(src);audioObj.play().catch(()=>tts(w.ch));}
+  else tts(w.ch);
+}
+function tts(t){
   if(!window.speechSynthesis)return;
   window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang='zh-CN';u.rate=0.8;
+  const u=new SpeechSynthesisUtterance(t);u.lang='zh-CN';u.rate=0.8;
   window.speechSynthesis.speak(u);
 }
 
-function findCandidates(input){
-  const raw=input.toLowerCase().trim();
-  if(!raw)return[];
-  const noSp=raw.replace(/\s+/g,'');
-  return VOCAB.filter(w=>{
-    const p=(w.plain||'').toLowerCase();
-    return p.startsWith(raw)||p.replace(/\s+/g,'').startsWith(noSp);
-  }).sort((a,b)=>(a.plain||'').length-(b.plain||'').length).slice(0,10);
+function getVocab(){
+  let r=[];
+  actLvl.forEach(l=>{if(BUILTIN[l])r=r.concat(BUILTIN[l].map(w=>({...w,_lvl:l})));});
+  actImp.forEach(n=>{if(impDecks[n])r=r.concat(impDecks[n].map(w=>({...w,_imp:true,_dn:n})));});
+  return r;
 }
 
-function pickNextWord(){
-  const due=VOCAB.filter(w=>isDue(progress[w.ch]));
-  const src=due.length?due:VOCAB;
-  // Randomize from first 15 for variety
-  const top=src.slice(0,Math.min(src.length,20));
+function isDue(c){return !c||!c.nr||new Date()>=new Date(c.nr);}
+function ni(cur,ok){if(!ok)return 1;const i=SRS.indexOf(cur);return SRS[Math.min(i<0?0:i+1,SRS.length-1)];}
+
+function pick(){
+  const vocab=getVocab();if(!vocab.length){quiz=null;return;}
+  const due=vocab.filter(w=>isDue(progress[w.ch]));
+  const src=due.length?due:vocab;
+  const top=src.slice(0,Math.min(src.length,25));
   quiz=top[Math.floor(Math.random()*top.length)];
-  answer='';pinyinInput='';result=null;showHint=false;hasPlayed=false;
+  answer='';pinyin='';result=null;hint=false;played=false;
+}
+
+function cands(inp){
+  const raw=inp.toLowerCase().trim();if(!raw)return[];
+  const ns=raw.replace(/\s+/g,'');
+  return getVocab().filter(w=>{
+    const p=(w.plain||'').toLowerCase();
+    return p.startsWith(raw)||p.replace(/\s+/g,'').startsWith(ns);
+  }).sort((a,b)=>(a.plain||'').length-(b.plain||'').length).slice(0,10);
 }
 
 function setView(v){
   view=v;
-  document.getElementById('navQuiz').className='navbtn'+(v==='quiz'?' active':'');
-  document.getElementById('navStats').className='navbtn'+(v==='stats'?' active':'');
+  document.getElementById('navQ').className='navbtn'+(v==='quiz'?' active':'');
+  document.getElementById('navS').className='navbtn'+(v==='stats'?' active':'');
   render();
 }
 
-function renderStatsbar(){
-  const due=VOCAB.filter(w=>isDue(progress[w.ch])).length;
-  const studied=Object.keys(progress).length;
-  const mastered=Object.values(progress).filter(p=>p.interval>=30).length;
-  document.getElementById('statsbar').innerHTML=
-    `<span>Session: <b style="color:var(--green)">✓ ${sessCorrect}</b> · <b style="color:var(--red)">✗ ${sessWrong}</b></span>`+
-    `<span>Due today: <b style="color:var(--amber)">${due}</b></span>`+
-    `<span>Studied: <b>${studied}</b> / ${VOCAB.length}</span>`+
-    `<span>Mastered: <b style="color:var(--green)">${mastered}</b></span>`;
+function toggleLvl(l){
+  if(actLvl.includes(l)){if(actLvl.length+actImp.length<=1)return;actLvl=actLvl.filter(x=>x!==l);}
+  else actLvl=[...actLvl,l].sort();
+  pick();rChips();rBar();render();
+}
+function toggleImp(n){
+  if(actImp.includes(n)){if(actLvl.length+actImp.length<=1)return;actImp=actImp.filter(x=>x!==n);}
+  else actImp=[...actImp,n];
+  pick();rChips();rBar();render();
+}
+function removeImp(n){
+  if(!confirm('Remove deck "'+n+'"?\nProgress for those cards is kept.'))return;
+  delete impDecks[n];actImp=actImp.filter(x=>x!==n);
+  saveImp();pick();rChips();rBar();render();
 }
 
-function selectCandidate(ch){
-  const w=VOCAB.find(v=>v.ch===ch);
-  if(!w)return;
-  answer=w.ch;pinyinInput='';
-  render();
-  setTimeout(()=>{const i=document.getElementById('pi');if(i)i.focus();},30);
+function rChips(){
+  const el=document.getElementById('chips');
+  let h=[1,2,3].map(l=>{
+    const cls='chip'+(actLvl.includes(l)?' active lv'+l:'');
+    return `<button class="${cls}" onclick="toggleLvl(${l})">HSK ${l}</button>`;
+  }).join('');
+  Object.keys(impDecks).forEach(n=>{
+    const s=n.length>14?n.slice(0,14)+'…':n;
+    const cls='chip'+(actImp.includes(n)?' active lvimp':'');
+    h+=`<button class="${cls}" onclick="toggleImp('${n.replace(/'/g,"\'")}')">📦 ${s}</button>`;
+    h+=`<button class="chip-x" onclick="removeImp('${n.replace(/'/g,"\'")}')">✕</button>`;
+  });
+  h+=`<label class="chip chip-import">+ Import deck<input type="file" accept=".apkg" style="display:none" onchange="startImport(this.files[0]);this.value=''"></label>`;
+  el.innerHTML=h;
 }
 
-function onPinyin(val){pinyinInput=val;renderQuiz();}
-function clearAns(){answer='';renderQuiz();}
+function rBar(){
+  const v=getVocab();
+  const due=v.filter(w=>isDue(progress[w.ch])).length;
+  const stud=v.filter(w=>progress[w.ch]).length;
+  const mast=v.filter(w=>progress[w.ch]&&progress[w.ch].iv>=30).length;
+  document.getElementById('sbar').innerHTML=
+    `<span>Session: <b class="c-g">✓ ${sC}</b> · <b class="c-r">✗ ${sW}</b></span>`+
+    `<span>Due: <b class="c-a">${due}</b></span>`+
+    `<span>Studied: <b>${stud} / ${v.length}</b></span>`+
+    `<span>Mastered: <b class="c-g">${mast}</b></span>`;
+}
 
-function submit(){
+function eh(s){return(s||'').replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);}
+
+function render(){view==='quiz'?rQuiz():rStats();}
+
+function rQuiz(){
+  const m=document.getElementById('main');
+  const vocab=getVocab();
+  if(!vocab.length){m.innerHTML='<div class="empty">No levels selected. Enable some above.</div>';return;}
+  if(!quiz)pick();
+  const cs=pinyin?cands(pinyin):[];
+  const c=progress[quiz.ch];
+  const lvlLbl=quiz._imp?eh(quiz._dn||'Imported'):'HSK '+quiz._lvl;
+  const badgeCls=quiz._imp?'bimp':'b'+quiz._lvl;
+
+  let h=`<div class="card">`;
+  h+=`<span class="badge ${badgeCls}">${lvlLbl}</span>`;
+  h+=`<div class="prompt">Listen, then write the character</div>`;
+  h+=`<button class="play-btn" onclick="playWord(quiz);played=true;document.getElementById('plbl').textContent='Tap to hear again'" aria-label="Play">🔊</button>`;
+  h+=`<div class="play-lbl" id="plbl">${played?'Tap to hear again':'Tap to listen'}</div>`;
+  h+=`<button class="hint-btn" onclick="hint=!hint;rQuiz()">${hint?'Hide hint':'Show English hint'}</button>`;
+  h+=`<div class="hint-txt">${hint?eh(quiz.en):''}</div>`;
+  h+=`<div class="ans-box${result?' '+result:''}">`;
+  h+=answer?`<span class="ans-ch">${eh(answer)}</span>`:`<span class="ans-ph">Type pinyin below, then pick the character</span>`;
+  h+=`</div>`;
+  if(result){
+    h+=`<div class="res-box ${result}">`;
+    h+=`<div class="res-title">${result==='correct'?'✓ Correct!':'✗ Incorrect'}</div>`;
+    if(quiz.pos)h+=`<span class="res-pos">${eh(quiz.pos)}</span>`;
+    h+=`<div class="res-ch">${eh(quiz.ch)}</div>`;
+    h+=`<div class="res-py">${eh(quiz.py)}</div>`;
+    h+=`<div class="res-en">${eh(quiz.en)}</div>`;
+    if(c){const d=Math.max(0,Math.round((new Date(c.nr)-new Date())/86400000));h+=`<div class="res-next">Next review in ${d} day${d!==1?'s':''}</div>`;}
+    h+=`</div>`;
+  }
+  h+=`</div>`;
+
+  let ime='';
+  if(!result){
+    ime+=`<div class="ime"><div class="ime-lbl">⌨️ Type pinyin (no tones) — HSK exam style</div>`;
+    ime+=`<input id="pi" class="ime-inp" type="text" placeholder="e.g. ru guo → pick 如果" value="${eh(pinyin)}" oninput="pinyin=this.value;rQuiz()" onkeydown="if(event.key==='Enter'&&answer&&!result)sub()" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off"/>`;
+    if(cs.length){
+      ime+=`<div class="cands">`;
+      cs.forEach(w=>{ime+=`<button class="cand" onclick="selC('${eh(w.ch)}')"><span class="cand-ch">${eh(w.ch)}</span><span class="cand-py">${eh(w.py)}</span></button>`;});
+      ime+=`</div>`;
+    }else if(pinyin)ime+=`<div class="cand-empty">No match found — try different spelling or check level filter</div>`;
+    ime+=`</div>`;
+  }
+
+  let act=`<div class="actions">`;
+  if(!result){
+    act+=`<button class="btn bp" onclick="sub()" ${!answer?'disabled':''}>Check answer</button>`;
+    act+=answer?`<button class="btn bs" onclick="answer='';rQuiz()">Clear</button>`:`<button class="btn bsk" onclick="pick();render()">Skip</button>`;
+  }else{
+    act+=`<button class="btn ${result==='correct'?'bnc':'bnw'}" onclick="pick();render()">Next card →</button>`;
+  }
+  act+=`</div>`;
+  m.innerHTML=h+ime+act;
+  if(!result){const i=document.getElementById('pi');if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length);}}
+}
+
+function selC(ch){answer=ch;pinyin='';rQuiz();setTimeout(()=>{const i=document.getElementById('pi');if(i)i.focus();},30);}
+
+function sub(){
   if(!quiz||!answer||result)return;
   const ok=answer.trim()===quiz.ch;
   result=ok?'correct':'wrong';
-  const c=progress[quiz.ch]||{c:0,w:0,interval:1};
-  const ni=nextInterval(c.interval,ok);
-  const nr=new Date();nr.setDate(nr.getDate()+ni);
-  progress[quiz.ch]={c:(c.c||0)+(ok?1:0),w:(c.w||0)+(ok?0:1),interval:ni,nextReview:nr.toISOString()};
-  if(ok)sessCorrect++;else sessWrong++;
-  saveProgress();renderStatsbar();renderQuiz();
+  const c=progress[quiz.ch]||{c:0,w:0,iv:1};
+  const niv=ni(c.iv,ok);
+  const nr=new Date();nr.setDate(nr.getDate()+niv);
+  progress[quiz.ch]={c:(c.c||0)+(ok?1:0),w:(c.w||0)+(ok?0:1),iv:niv,nr:nr.toISOString()};
+  if(ok)sC++;else sW++;
+  saveProg();rBar();rQuiz();
 }
 
-function nextCard(){pickNextWord();renderQuiz();}
-function skip(){pickNextWord();renderQuiz();}
-
-function escapeHtml(s){return (s||'').replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);}
-
-function renderQuiz(){
-  const main=document.getElementById('main');
-  if(!quiz){main.innerHTML='<div class="empty">No cards available.</div>';return;}
-  
-  const cands=pinyinInput?findCandidates(pinyinInput):[];
-  const card=progress[quiz.ch];
-  
-  let cardHtml='';
-  cardHtml+=`<div class="card">`;
-  cardHtml+=`<span class="badge badge-hsk3">HSK 3</span>`;
-  cardHtml+=`<div class="prompt" style="margin-top:18px">Listen, then write the character</div>`;
-  cardHtml+=`<button class="play-btn" onclick="speak(quiz);hasPlayed=true;document.getElementById('plbl').textContent='Tap to hear again'" aria-label="Play audio">🔊</button>`;
-  cardHtml+=`<div class="play-label" id="plbl">${hasPlayed?'Tap to hear again':'Tap to listen'}</div>`;
-  cardHtml+=`<button class="hint-btn" onclick="showHint=!showHint;renderQuiz()">${showHint?'Hide hint':'Show English hint'}</button>`;
-  cardHtml+=`<div class="hint-text">${showHint?escapeHtml(quiz.en):''}</div>`;
-  
-  const ansCls='answer-box'+(result?' '+result:'');
-  cardHtml+=`<div class="${ansCls}">`;
-  cardHtml+=answer?`<span class="answer-char">${escapeHtml(answer)}</span>`:`<span class="answer-placeholder">Type pinyin below, then pick the character</span>`;
-  cardHtml+=`</div>`;
-  
-  if(result){
-    cardHtml+=`<div class="result-box ${result}">`;
-    cardHtml+=`<div class="result-title">${result==='correct'?'✓ Correct!':'✗ Incorrect'}</div>`;
-    cardHtml+=`<span class="result-pos">${escapeHtml(quiz.pos||'')}</span>`;
-    cardHtml+=`<div class="result-ch">${escapeHtml(quiz.ch)}</div>`;
-    cardHtml+=`<div class="result-py">${escapeHtml(quiz.py)}</div>`;
-    cardHtml+=`<div class="result-en">${escapeHtml(quiz.en)}</div>`;
-    if(card){
-      const reviewDays=Math.round((new Date(card.nextReview)-new Date())/86400000);
-      cardHtml+=`<div class="result-en" style="margin-top:8px">Next review: in ${Math.max(reviewDays,0)} day(s)</div>`;
-    }
-    cardHtml+=`</div>`;
-  }
-  cardHtml+=`</div>`;
-  
-  let imeHtml='';
-  if(!result){
-    imeHtml+=`<div class="ime-wrap">`;
-    imeHtml+=`<div class="ime-label">⌨️ Type pinyin (no tones needed) — HSK exam style</div>`;
-    imeHtml+=`<input id="pi" class="ime-input" type="text" placeholder="e.g. ru guo → pick 如果" value="${escapeHtml(pinyinInput)}" oninput="onPinyin(this.value)" onkeydown="if(event.key==='Enter'){if(answer&&!result)submit();}" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off"/>`;
-    if(cands.length){
-      imeHtml+=`<div class="cand-grid">`;
-      cands.forEach(w=>{
-        imeHtml+=`<button class="cand-btn" onclick="selectCandidate('${escapeHtml(w.ch)}')"><span class="cand-ch">${escapeHtml(w.ch)}</span><span class="cand-py">${escapeHtml(w.py)}</span></button>`;
-      });
-      imeHtml+=`</div>`;
-    } else if(pinyinInput){
-      imeHtml+=`<div class="cand-empty">No match in HSK 3 deck.</div>`;
-    }
-    imeHtml+=`</div>`;
-  }
-  
-  let actHtml='<div class="actions">';
-  if(!result){
-    actHtml+=`<button class="btn btn-primary" onclick="submit()" ${!answer?'disabled':''}>Check answer</button>`;
-    if(answer)actHtml+=`<button class="btn btn-secondary" onclick="clearAns()">Clear</button>`;
-    else actHtml+=`<button class="btn btn-skip" onclick="skip()">Skip</button>`;
-  } else {
-    actHtml+=`<button class="btn ${result==='correct'?'btn-next-c':'btn-next-w'}" onclick="nextCard()">Next card →</button>`;
-  }
-  actHtml+='</div>';
-  
-  main.innerHTML=cardHtml+imeHtml+actHtml;
-  
-  if(!result){
-    const inp=document.getElementById('pi');
-    if(inp){inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length);}
-  }
-}
-
-function renderStats(){
-  const main=document.getElementById('main');
-  const studied=Object.keys(progress).length;
-  const mastered=Object.values(progress).filter(p=>p.interval>=30).length;
-  const due=VOCAB.filter(w=>isDue(progress[w.ch])).length;
-  const accuracy=(()=>{
-    let c=0,w=0;
-    Object.values(progress).forEach(p=>{c+=p.c||0;w+=p.w||0;});
-    return c+w?Math.round(c/(c+w)*100):0;
-  })();
-  
-  let html='<div class="stats-wrap">';
-  html+=`<p class="stats-h">Overview</p>`;
-  html+=`<div class="metrics">`;
-  html+=`<div class="metric"><div class="metric-label">Studied</div><div class="metric-val">${studied}<span style="font-size:14px;color:var(--text-dim)"> / ${VOCAB.length}</span></div></div>`;
-  html+=`<div class="metric"><div class="metric-label">Mastered</div><div class="metric-val green">${mastered}</div></div>`;
-  html+=`<div class="metric"><div class="metric-label">Due now</div><div class="metric-val amber">${due}</div></div>`;
-  html+=`<div class="metric"><div class="metric-label">Accuracy</div><div class="metric-val">${accuracy}%</div></div>`;
-  html+=`</div>`;
-  
-  html+=`<div class="progress-wrap">`;
-  html+=`<p class="stats-h" style="margin-bottom:0">HSK 3 progress</p>`;
-  html+=`<div class="progress-track"><div class="progress-fill" style="width:${(studied/VOCAB.length)*100}%"></div></div>`;
-  html+=`<div class="progress-meta"><span>${studied} of ${VOCAB.length} cards</span><span>${Math.round(studied/VOCAB.length*100)}%</span></div>`;
-  html+=`</div>`;
-  
-  html+=`<p class="stats-h">All cards</p>`;
-  html+=`<div class="word-grid">`;
-  VOCAB.forEach(w=>{
-    const c=progress[w.ch];
-    let cls='word-card';
-    let tag='';
-    if(c){
-      if(c.interval>=30){cls+=' mastered';tag='<span class="tag-mastered">mastered</span>';}
-      else if(isDue(c)){cls+=' due';tag='<span class="tag-due">due</span>';}
-    }
-    html+=`<div class="${cls}">`;
-    html+=`<div class="wc-ch">${escapeHtml(w.ch)}</div>`;
-    html+=`<div class="wc-py">${escapeHtml(w.py)}</div>`;
-    html+=`<div class="wc-en">${escapeHtml(w.en)}</div>`;
-    html+=`<div class="wc-stats">${c?`<span class="tag tag-c">✓${c.c}</span><span class="tag tag-w">✗${c.w}</span>${tag}`:`<span class="tag-new">new</span>`}</div>`;
-    html+=`</div>`;
+function rStats(){
+  const m=document.getElementById('main');
+  const vocab=getVocab();
+  const stud=vocab.filter(w=>progress[w.ch]);
+  const mast=vocab.filter(w=>progress[w.ch]&&progress[w.ch].iv>=30);
+  const due=vocab.filter(w=>isDue(progress[w.ch]));
+  let ac=0,aw=0;Object.values(progress).forEach(p=>{ac+=p.c||0;aw+=p.w||0;});
+  const acc=ac+aw?Math.round(ac/(ac+aw)*100):0;
+  let h='<div class="stats-wrap">';
+  h+=`<p class="sh">Overview</p><div class="metrics">`;
+  h+=`<div class="metric"><div class="ml">Studied</div><div class="mv">${stud.length}<span class="mof"> / ${vocab.length}</span></div></div>`;
+  h+=`<div class="metric"><div class="ml">Mastered</div><div class="mv c-g">${mast.length}</div></div>`;
+  h+=`<div class="metric"><div class="ml">Due now</div><div class="mv c-a">${due.length}</div></div>`;
+  h+=`<div class="metric"><div class="ml">Accuracy</div><div class="mv">${acc}%</div></div>`;
+  h+=`</div>`;
+  [1,2,3].filter(l=>actLvl.includes(l)).forEach(l=>{
+    const lw=BUILTIN[l]||[];
+    const ls=lw.filter(w=>progress[w.ch]);
+    const pct=lw.length?Math.round(ls.length/lw.length*100):0;
+    h+=`<div class="pw"><div style="display:flex;justify-content:space-between;align-items:center"><p class="sh" style="margin:0">HSK ${l}</p><span style="font-size:12px;color:var(--txm)">${ls.length} / ${lw.length}</span></div>`;
+    h+=`<div class="pt"><div class="pf pf${l}" style="width:${pct}%"></div></div><div class="pm"><span>${pct}% studied</span><span>${lw.filter(w=>progress[w.ch]&&progress[w.ch].iv>=30).length} mastered</span></div></div>`;
   });
-  html+=`</div>`;
-  
-  html+=`<button class="reset-btn" onclick="if(confirm('Reset all progress? This cannot be undone.')){progress={};saveProgress();renderStatsbar();render();}">Reset all progress</button>`;
-  html+=`</div>`;
-  
-  main.innerHTML=html;
+  actImp.forEach(n=>{
+    const lw=impDecks[n]||[];
+    const ls=lw.filter(w=>progress[w.ch]);
+    const pct=lw.length?Math.round(ls.length/lw.length*100):0;
+    h+=`<div class="pw"><div style="display:flex;justify-content:space-between;align-items:center"><p class="sh" style="margin:0">📦 ${eh(n)}</p><span style="font-size:12px;color:var(--txm)">${ls.length} / ${lw.length}</span></div>`;
+    h+=`<div class="pt"><div class="pf pfi" style="width:${pct}%"></div></div><div class="pm"><span>${pct}% studied</span></div></div>`;
+  });
+  h+=`<p class="sh" style="margin-top:20px">Cards</p><div class="wgrid">`;
+  vocab.forEach(w=>{
+    const c=progress[w.ch];let cls='wcard',tag='';
+    if(c){if(c.iv>=30){cls+=' mastered';tag='<span class="tmas">mastered</span>';}else if(isDue(c)){cls+=' due';tag='<span class="tdue">due</span>';}}
+    h+=`<div class="${cls}"><div class="wch">${eh(w.ch)}</div><div class="wpy">${eh(w.py)}</div><div class="wen">${eh(w.en)}</div>`;
+    h+=`<div class="wtags">${c?`<span class="tag tc">✓${c.c}</span><span class="tag tw">✗${c.w}</span>${tag}`:'<span class="tnew">new</span>'}</div></div>`;
+  });
+  h+=`</div><button class="reset-btn" onclick="if(confirm('Reset ALL progress?')){progress={};saveProg();rBar();render();}">Reset all progress</button></div>`;
+  m.innerHTML=h;
 }
 
-function render(){view==='quiz'?renderQuiz():renderStats();}
+// ── DECK IMPORTER ──
+async function loadSql(){
+  if(sqlJs)return sqlJs;
+  return new Promise((res,rej)=>{
+    if(document.querySelector('script[data-sqls]'))return;
+    const s=document.createElement('script');
+    s.dataset.sqls='1';
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js';
+    s.onload=async()=>{sqlJs=await initSqlJs({locateFile:f=>`https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/${f}`});res(sqlJs);};
+    s.onerror=rej;document.head.appendChild(s);
+  });
+}
 
-loadProgress();
-pickNextWord();
-renderStatsbar();
+function setImpModal(html){document.getElementById('impModal').innerHTML=html;document.getElementById('impModal').style.display=html?'block':'';}
+
+async function startImport(file){
+  if(!file)return;
+  if(importing){alert('Already importing, please wait...');return;}
+  importing=true;
+  setImpModal(`<div class="imp-overlay"><div class="imp-card"><div class="imp-title">📦 Importing Deck</div><div class="imp-sub">${eh(file.name)}</div><div class="imp-prog" id="impProg">Reading file...</div></div></div>`);
+  const prog=id=>document.getElementById('impProg').textContent=id;
+  try{
+    if(typeof JSZip==='undefined')throw new Error('JSZip not loaded — check internet connection');
+    prog('Unzipping .apkg...');
+    const zip=await JSZip.loadAsync(file);
+    let mediaMap={};
+    const mf=zip.file('media');
+    if(mf)mediaMap=JSON.parse(await mf.async('string'));
+    const n2num=Object.fromEntries(Object.entries(mediaMap).map(([n,v])=>[v,n]));
+    prog('Loading SQL parser...');
+    const SQL=await loadSql();
+    const dbf=zip.file('collection.anki2');
+    if(!dbf)throw new Error('No collection.anki2 in file — is this a valid Anki deck?');
+    prog('Reading cards...');
+    const buf=await dbf.async('arraybuffer');
+    const db=new SQL.Database(new Uint8Array(buf));
+    const res=db.exec('SELECT flds FROM notes ORDER BY id');
+    db.close();
+    if(!res[0])throw new Error('No notes found in deck');
+    const vocab=[];const audioSet=new Set();
+    for(const row of res[0].values){
+      const pts=row[0].split('\x1f');if(pts.length<8)continue;
+      const simp=pts[1].trim(),py=pts[3].trim(),pyn=pts[4].trim(),en=pts[5].trim(),pos=pts[6].trim(),sf=pts[7].trim();
+      const am=sf.match(/\[sound:([^\]]+)\]/);
+      const af=am?am[1]:null;if(af)audioSet.add(af);
+      const first=pyn.split(',')[0].trim();
+      const syls=[...first.matchAll(/([a-zA-Z]+)[1-5]?/g)].map(m=>m[1].toLowerCase());
+      vocab.push({ch:simp,py:py.split(',')[0].trim(),plain:syls.join(' '),en,pos,audio:af});
+    }
+    prog(`Saving ${audioSet.size} audio files...`);
+    let saved=0;
+    for(const aname of audioSet){
+      const num=n2num[aname];if(!num)continue;
+      const entry=zip.file(num);if(!entry)continue;
+      const blob=await entry.async('blob');
+      await storeBlob(aname,blob);saved++;
+      if(saved%20===0)prog(`Saving audio... ${saved}/${audioSet.size}`);
+    }
+    const deckName=file.name.replace(/\.apkg$/i,'');
+    impDecks[deckName]=vocab;
+    if(!actImp.includes(deckName))actImp.push(deckName);
+    saveImp();setImpModal('');pick();rChips();rBar();render();
+    importing=false;
+    alert(`✓ Imported "${deckName}"\n${vocab.length} cards · ${saved} audio files`);
+  }catch(e){
+    setImpModal('');importing=false;
+    alert('Import failed: '+e.message);
+  }
+}
+
+loadState();
+openADB();
+pick();
+rChips();
+rBar();
 render();
 </script>
 </body>
