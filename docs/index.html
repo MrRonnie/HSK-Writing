@@ -126,6 +126,19 @@ main{flex:1;padding:20px 16px;max-width:620px;margin:0 auto;width:100%}
 .imp-prog{font-size:13px;color:var(--accent);margin-top:12px;min-height:20px}
 .empty{text-align:center;padding:60px 20px;color:var(--txm);font-size:14px}
 @media(max-width:500px){.ans-ch{font-size:32px}.logo{font-size:14px}main{padding:14px 10px}header{padding:8px 10px}}
+/* Simple footer */
+.simple-footer {
+  text-align: center;
+  padding: 24px 16px 20px;
+  margin-top: 32px;
+  border-top: 1px solid var(--brd);
+  font-size: 12px;
+  color: var(--txd);
+  background: var(--surface);
+}
+.simple-footer div {
+  margin: 4px 0;
+}
 </style>
 </head>
 <body>
@@ -139,6 +152,17 @@ main{flex:1;padding:20px 16px;max-width:620px;margin:0 auto;width:100%}
 </header>
 <div class="sbar" id="sbar"></div>
 <main id="main"></main>
+<footer style="
+  text-align: center;
+  padding: 20px 16px 24px;
+  font-size: 12px;
+  color: var(--txd);
+  border-top: 1px solid var(--brd);
+  margin-top: 24px;
+">
+   <div>Made With Love ❤️ By Ronnie</div>
+  <div>Copyright © <span id="year"></span> - All rights reserved</div>
+</footer>
 <div id="impModal" style="display:none"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
@@ -473,5 +497,6 @@ rChips();
 rBar();
 render();
 </script>
+<script>document.getElementById('year').innerText = new Date().getFullYear();</script>
 </body>
 </html>
